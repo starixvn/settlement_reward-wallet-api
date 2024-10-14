@@ -1,17 +1,21 @@
-using MinimalApi.Endpoint.Extensions;
+using RewardWallet;
 using RewardWallet.Models;
 using RewardWalletApi.Config;
 using RewardWalletApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpoints();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddHealthChecks();
 
 builder.Services.Configure<AppSettings>(builder.Configuration);
 
 builder.Services.AddInitialServices(builder.Configuration);
+
+builder
+    .AddRewardWalletModule();
 
 var app = builder.Build();
 
@@ -33,6 +37,8 @@ app.UseCors("AllowOrigin");
 
 app.UseAuthorization();
 
-app.MapEndpoints();
+
+app.MapRewardWalletModule();
+
 
 app.Run();

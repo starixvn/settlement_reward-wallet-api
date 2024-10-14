@@ -29,9 +29,6 @@ public static class InitializeConfig
         services.AddConfigRedisCache(configuration);
         services.AddControllers();
 
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
-
         services.AddCoreServices(configuration);
 
         StartUmSetting(configuration);

@@ -7,6 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Constants\**" />
+    <Compile Remove="Criteria\**" />
+    <EmbeddedResource Remove="Constants\**" />
+    <EmbeddedResource Remove="Criteria\**" />
+    <None Remove="Constants\**" />
+    <None Remove="Criteria\**" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Fanex.Caching.Redis" Version="2.2.4" />
     <PackageReference Include="Fanex.Caching.Redis.AspNetCore" Version="2.2.4" />
     <PackageReference Include="Fanex.Data" Version="4.2.5.3" />
@@ -19,11 +32,9 @@
     <!-- ReSharper disable once VulnerablePackage -->
     <PackageReference Include="Fanex.Logging.Sentry.RavenClient" Version="1.0.1.2" />
     <PackageReference Include="Fanex.NAP.Client.AspNetCore" Version="2.0.0.13" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Constants\" />
-    <Folder Include="Criteria\" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
   </ItemGroup>
 
 </Project>
