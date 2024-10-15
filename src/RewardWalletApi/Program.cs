@@ -1,10 +1,10 @@
-using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using RewardWallet;
 using RewardWallet.Models;
 using RewardWalletApi.Config;
 using RewardWalletApi.Middleware;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,8 +48,6 @@ app.UseCors("AllowOrigin");
 
 app.UseAuthorization();
 
-
 app.MapRewardWalletModule();
 
-
-app.Run();
+await app.RunAsync();
