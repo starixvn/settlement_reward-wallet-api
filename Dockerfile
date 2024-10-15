@@ -1,19 +1,19 @@
 FROM hub.nexdev.net/base/dotnet/core/sdk:8.0-alpine AS builder
 
 WORKDIR /src
-# COPY Settlement.ExternalApi.sln .
-COPY src/Settlement.External/*.csproj ./src/Settlement.External/
-COPY src/Settlement.ExternalApi/*.csproj ./src/Settlement.ExternalApi/
+
+COPY src/RewardWallet/*.csproj ./src/RewardWallet/
+COPY src/RewardWalletApi/*.csproj ./src/RewardWalletApi/
 
 
 RUN dotnet nuget add source https://nuget.nexdev.net/api/v2
 RUN --mount=type=cache,target=/root/.nuget/packages \
-    dotnet restore ./src/Settlement.ExternalApi/Settlement.ExternalApi.csproj
+    dotnet restore ./src/RewardWalletApi/RewardWalletApi.csproj
 
-COPY src/Settlement.External/. ./src/Settlement.External/
-COPY src/Settlement.ExternalApi/. ./src/Settlement.ExternalApi/
+COPY src/RewardWallet/. ./src/RewardWallet/
+COPY src/RewardWalletApi/. ./src/RewardWalletApi/
 
-WORKDIR /src/src/Settlement.ExternalApi
+WORKDIR /src/src/RewardWalletApi
 
 RUN --mount=type=cache,target=/root/.nuget/packages \
 	dotnet publish -c release -o /app
@@ -31,4 +31,4 @@ RUN adduser --disabled-password \
   --gecos '' dotnetuser && chown -R dotnetuser /app
 USER dotnetuser
 
-ENTRYPOINT ["dotnet", "Settlement.ExternalApi.dll"]
+ENTRYPOINT ["dotnet", "RewardWalletApi.dll"]
