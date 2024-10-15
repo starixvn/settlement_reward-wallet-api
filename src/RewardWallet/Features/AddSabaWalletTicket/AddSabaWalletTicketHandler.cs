@@ -1,5 +1,7 @@
 ﻿using System.Text.Json;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using RewardWallet.Models;
 
 namespace RewardWallet.Features;
@@ -15,13 +17,13 @@ public class AddSabaWalletTicketHandler
         this.validator = validator;
     }
 
-    public async Task<Result> HandleAsync(AddSabaWalletTicketCommand command, CancellationToken cancellationToken)
+    public async Task<Results<Ok<Result>, BadRequest<Result>>> HandleAsync(AddSabaWalletTicketCommand command, CancellationToken cancellationToken)
     {
         var validationResult = await HandleInValidCommand(command, cancellationToken);
 
         if (!string.IsNullOrEmpty(validationResult.ErrorCode))
         {
-            return validationResult;
+            return TypedResults.BadRequest(validationResult);
         }
 
         var addSabaProgramStatusCriteria = command.Adapt<AddSabaProgramStatusCriteria>();
@@ -39,7 +41,7 @@ public class AddSabaWalletTicketHandler
         var updateSabaProgramStatusCriteria = addSabaProgramStatusCriteria.Adapt<UpdateSabaProgramStatusCriteria>();
         await repository.ExecuteAsync(updateSabaProgramStatusCriteria);
 
-        return validationResult;
+        return TypedResults.Ok(validationResult);
     }
 
 
@@ -53,6 +55,6 @@ public class AddSabaWalletTicketHandler
             return new Result(firstError.ErrorCode, firstError.ErrorMessage);
         }
 
-        return new Result("", "Success");
+        return new Result("0", "Success");
     }
 }
