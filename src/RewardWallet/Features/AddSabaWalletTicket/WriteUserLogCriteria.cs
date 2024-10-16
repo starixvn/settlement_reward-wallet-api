@@ -10,8 +10,5 @@ public class WriteUserLogCriteria : INonQueryCommand
     public string TrackingValue { get; set; }
     public string GetSettingKey() => "WriteLog_UserLog_RunSP";
 
-    public bool IsValid()
-    {
-        throw new NotImplementedException();
-    }
+    public bool IsValid() => true;
 }

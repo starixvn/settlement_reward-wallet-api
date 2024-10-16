@@ -13,7 +13,7 @@ public class FetchPendingBalanceHandler
     {
         var criteria = query.Adapt<FetchPendingBalanceCriteria>();
 
-        var result = await repository.GetAsync<FetchPendingBalanceResponse>(criteria, cancellationToken);
+        var result = await repository.GetAsync<FetchPendingBalanceResponse>(criteria);
 
         return result;
     }

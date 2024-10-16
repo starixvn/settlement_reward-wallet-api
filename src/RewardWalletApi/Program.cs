@@ -1,10 +1,10 @@
+using System.Reflection;
+using Core.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using RewardWallet;
-using RewardWallet.Models;
 using RewardWalletApi.Config;
 using RewardWalletApi.Middleware;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 

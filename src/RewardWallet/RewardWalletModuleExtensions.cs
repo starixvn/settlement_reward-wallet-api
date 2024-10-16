@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Core.EndpointFilters;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using RewardWallet.Features;
@@ -25,7 +26,7 @@ public static class RewardWalletModuleExtensions
         _ = endpoints
             .MapGroup($"api/{Constants.ModuleName.ToLower()}")
             .WithTags($"{Constants.ModuleName}")
-            //.AddFluentValidationFilter()
+            .AddCustomFluentValidationFilter()
 
             .MapFetchBalance()
             .MapFetchSabaWalletTickets()

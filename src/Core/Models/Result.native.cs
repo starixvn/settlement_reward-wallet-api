@@ -1,7 +1,7 @@
 ﻿
 using System.Text.Json.Serialization;
 
-namespace RewardWallet.Models;
+namespace Core.Models;
 
 public record class Result(string ErrorCode, string ErrorMessage)
 {

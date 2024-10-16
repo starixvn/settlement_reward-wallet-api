@@ -1,11 +1,12 @@
-﻿using Fanex.Logging;
+﻿using System.Text;
+using System.Text.Json;
+using Core.Models;
+using Fanex.Logging;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using RewardWallet.Models;
-using System.Text;
 
-namespace RewardWalletApi.EndpointFilters;
+namespace Core.EndpointFilters;
 
 public class LogRequestFilter(IOptions<AppSettings> appSettingsKey) : IEndpointFilter
 {
@@ -15,7 +16,7 @@ public class LogRequestFilter(IOptions<AppSettings> appSettingsKey) : IEndpointF
         if (appSettingsKey.Value.EnableLogRequest)
         {
             var model = context.Arguments[0];
-            var serialString = JsonConvert.SerializeObject(model);
+            var serialString = JsonSerializer.Serialize(model);
             var url = context.HttpContext.Request.GetDisplayUrl();
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine($"RewardWalletApi - Url: {url}");

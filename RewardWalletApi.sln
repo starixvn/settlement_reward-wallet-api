@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RewardWallet", "src\RewardW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RewardWalletApi", "src\RewardWalletApi\RewardWalletApi.csproj", "{6364122B-B7E0-496B-B982-A1918B949A5B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "src\Core\Core.csproj", "{E7DDD7AD-217F-476B-A6BB-C7B804DAD7ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{6364122B-B7E0-496B-B982-A1918B949A5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6364122B-B7E0-496B-B982-A1918B949A5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6364122B-B7E0-496B-B982-A1918B949A5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7DDD7AD-217F-476B-A6BB-C7B804DAD7ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7DDD7AD-217F-476B-A6BB-C7B804DAD7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7DDD7AD-217F-476B-A6BB-C7B804DAD7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7DDD7AD-217F-476B-A6BB-C7B804DAD7ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5B281EA2-0AA9-475F-91F4-2CA7ABEE1331} = {4EBC89A6-9B96-40F3-AC5D-B4448272DCB1}
 		{6364122B-B7E0-496B-B982-A1918B949A5B} = {4EBC89A6-9B96-40F3-AC5D-B4448272DCB1}
+		{E7DDD7AD-217F-476B-A6BB-C7B804DAD7ED} = {4EBC89A6-9B96-40F3-AC5D-B4448272DCB1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FED1FFD3-63AC-438E-84B6-EEE2BD5DD1B0}

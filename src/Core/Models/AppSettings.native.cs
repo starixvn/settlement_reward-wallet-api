@@ -1,4 +1,4 @@
-﻿namespace RewardWallet.Models;
+﻿namespace Core.Models;
 
 public class AppSettings
 {

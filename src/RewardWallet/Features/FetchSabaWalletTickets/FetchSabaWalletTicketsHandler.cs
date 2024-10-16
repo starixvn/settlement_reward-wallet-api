@@ -13,10 +13,9 @@ public class FetchSabaWalletTicketsHandler
     {
         var criteria = query.Adapt<FetchSabaWalletTicketsCriteria>();
 
-        var results = await repository.FetchAsync<FetchSabaWalletTicketsResponse>(criteria, cancellationToken);
+        var results = await repository.FetchAsync<FetchSabaWalletTicketsResponse>(criteria);
 
         return results.ToList();
 
     }
-
 }
