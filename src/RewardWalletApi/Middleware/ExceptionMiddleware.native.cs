@@ -2,7 +2,7 @@
 using Fanex.Logging.Extensions.Database;
 using ILogger = Fanex.Logging.ILogger;
 
-namespace RewardWalletApi.Middleware;
+namespace RewardWallet.Api.Middleware;
 
 public class ExceptionMiddleware(RequestDelegate next, ILogger logger)
 {

@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RewardWallet", "src\RewardWallet\RewardWallet.csproj", "{5B281EA2-0AA9-475F-91F4-2CA7ABEE1331}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RewardWalletApi", "src\RewardWalletApi\RewardWalletApi.csproj", "{6364122B-B7E0-496B-B982-A1918B949A5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RewardWallet.Api", "src\RewardWalletApi\RewardWallet.Api.csproj", "{6364122B-B7E0-496B-B982-A1918B949A5B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "src\Core\Core.csproj", "{E7DDD7AD-217F-476B-A6BB-C7B804DAD7ED}"
 EndProject

@@ -3,8 +3,8 @@ using Core.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using RewardWallet;
-using RewardWalletApi.Config;
-using RewardWalletApi.Middleware;
+using RewardWallet.Api.Config;
+using RewardWallet.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -20,7 +20,7 @@ using SharpRaven;
 using StackExchange.Redis;
 using ILogger = Fanex.Logging.ILogger;
 
-namespace RewardWalletApi.Config;
+namespace RewardWallet.Api.Config;
 
 public static class InitializeConfig
 {
