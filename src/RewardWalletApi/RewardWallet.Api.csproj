@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RewardInfrastructure\RewardInfrastructure.csproj" />
     <ProjectReference Include="..\RewardWallet\RewardWallet.csproj" />
   </ItemGroup>
 

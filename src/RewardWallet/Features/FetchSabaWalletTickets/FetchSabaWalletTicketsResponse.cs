@@ -1,10 +1,13 @@
-﻿namespace RewardWallet.Features;
+﻿using System.Collections;
+using RewardWallet.Contracts;
 
-public class FetchSabaWalletTicketsResponse
+namespace RewardWallet.Features;
+
+public record class FetchSabaWalletTicketsResponse(IEnumerable<SabaWalletTicketItem> Items) : IEnumerable<SabaWalletTicketItem>
 {
-    public long TransId { get; set; }
-    public decimal Amount { get; set; }
-    public short ProgramId { get; set; }
-    public DateTime APaymentDate { get; set; }
-    public bool IsComplaint { get; set; }
+    public IEnumerator<SabaWalletTicketItem> GetEnumerator()
+        => Items.GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator()
+        => ((IEnumerable)Items).GetEnumerator();
 }

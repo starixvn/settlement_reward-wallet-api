@@ -2,6 +2,8 @@ using System.Reflection;
 using Core.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using MassTransit;
+using RewardInfrastructure;
 using RewardWallet;
 using RewardWallet.Api.Config;
 using RewardWallet.Api.Middleware;
@@ -26,7 +28,18 @@ builder.Services.Configure<AppSettings>(builder.Configuration);
 builder.Services.AddInitialServices(builder.Configuration);
 
 builder
-    .AddRewardWalletModule();
+    .AddRewardWalletModule()
+    .AddRewardInfrastructureModule();
+
+builder.Services.AddMassTransit(x =>
+{
+    x.SetKebabCaseEndpointNameFormatter();
+    x.UsingInMemory((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+    x.AddRewardInfrastructureConsumers();
+});
 
 var app = builder.Build();
 

@@ -2,6 +2,6 @@
 
 public record class UpdateSabaWalletTicketCommand(
     int CustId,
-    string TransIds,
+    long TransId,
     short SiteDbGroupId,
     bool IsComplaint);

@@ -1,4 +1,6 @@
-﻿namespace RewardWallet.Features;
+﻿using RewardWallet.Contracts;
+
+namespace RewardWallet.Features;
 
 public class FetchSabaWalletTicketsHandler
 {
@@ -9,13 +11,13 @@ public class FetchSabaWalletTicketsHandler
         this.repository = repository;
     }
 
-    public async Task<List<FetchSabaWalletTicketsResponse>> HandleAsync(FetchSabaWalletTicketsQuery query, CancellationToken cancellationToken)
+    public async Task<FetchSabaWalletTicketsResponse> HandleAsync(FetchSabaWalletTicketsQuery query, CancellationToken cancellationToken)
     {
         var criteria = query.Adapt<FetchSabaWalletTicketsCriteria>();
 
-        var results = await repository.FetchAsync<FetchSabaWalletTicketsResponse>(criteria);
+        var results = await repository.FetchAsync<SabaWalletTicketItem>(criteria);
 
-        return results.ToList();
+        return new FetchSabaWalletTicketsResponse(results);
 
     }
 }

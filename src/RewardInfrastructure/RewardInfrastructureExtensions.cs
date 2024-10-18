@@ -1,0 +1,26 @@
+﻿using MassTransit;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
+using RewardInfrastructure.Features;
+
+namespace RewardInfrastructure
+{
+    public static class RewardInfrastructureExtensions
+    {
+        public static WebApplicationBuilder AddRewardInfrastructureModule(this WebApplicationBuilder builder)
+        {
+
+            return builder;
+        }
+
+        public static IEndpointRouteBuilder MapRewardInfrastructureModule(this IEndpointRouteBuilder endpoints)
+        {
+            return endpoints;
+        }
+
+        public static void AddRewardInfrastructureConsumers(this IRegistrationConfigurator configurator)
+        {
+            configurator.AddConsumer<RewardWalletEventsConsumers>();
+        }
+    }
+}

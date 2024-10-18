@@ -16,6 +16,7 @@ public static class RewardWalletModuleExtensions
             .AddAddSabaWalletTicket()
             .AddCheckCustomer()
             .AddUpdateSabaWalletTicket()
+            .AddFetchFeedbackTickets()
             .AddMapster();
 
         return builder;

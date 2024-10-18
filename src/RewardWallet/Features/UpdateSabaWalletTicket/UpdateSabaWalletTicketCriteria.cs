@@ -1,11 +1,12 @@
 ﻿namespace RewardWallet.Features;
 
-public class UpdateSabaWalletTicketCriteria : INonQueryCommand
+public class UpdateSabaWalletTicketCriteria : CriteriaBase
 {
     public int CustId { get; set; }
-    public string TransIds { get; set; }
-    public bool IsComplaint { get; set; }
-    public string GetSettingKey() => "NAP_SabaWalletTicket_Complaint_Udp";
+    public long TransId { get; set; }
+    public bool? IsComplaint { get; set; }
 
-    public bool IsValid() => CustId > 0;
+    public override string GetSettingKey() => "NAP_SabaWalletTicket_Complaint_Udp";
+
+    public override bool IsValid() => CustId > 0;
 }

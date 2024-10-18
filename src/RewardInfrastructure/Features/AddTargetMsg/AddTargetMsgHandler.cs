@@ -1,0 +1,58 @@
+﻿using Core.Models;
+using Fanex.Data.Repository;
+using Fanex.Settlement.Converter.Services;
+using RewardWallet.Contracts;
+
+namespace RewardInfrastructure.Features;
+
+public class AddTargetMsgHandler
+{
+    private readonly IDynamicRepository repository;
+    private readonly XmlConvertService xmlConvertService;
+
+    public AddTargetMsgHandler(IDynamicRepository repository, XmlConvertService xmlConvertService)
+    {
+        this.repository = repository;
+        this.xmlConvertService = xmlConvertService;
+    }
+
+    public async Task<Result> HandleAsync(SabaWalletTicketItem item, int messageId, CancellationToken cancellationToken)
+    {
+        var message = CreateMessageFromTicket(item, messageId);
+
+        var criteria = new AddTargetMsgCriteria
+        {
+            XMLMessage = xmlConvertService.Serialize(message),
+        };
+
+        await repository.ExecuteAsync(criteria);
+
+        return new Result("", "");
+    }
+
+    private Message CreateMessageFromTicket(SabaWalletTicketItem item, int messageId)
+    {
+        List<Customer> participants = [
+            new Customer(item.CustId,item.Username),
+            new Customer(item.AgentId,item.AgentUsername),
+            new Customer(item.MasterId,item.MasterUsername),
+            new Customer(item.SuperId,item.SuperUsername)];
+
+        var messageItems = participants
+            .Where(p => p.Id != 0)
+            .Select(p => new MessageItem
+            {
+                TargetId = p.Id,
+                TargetName = p.Name,
+                MessageId = messageId,
+                BetTransId = item.TransId.ToString()
+            })
+            .ToList();
+
+        return new Message
+        {
+            Items = messageItems
+        };
+    }
+
+}

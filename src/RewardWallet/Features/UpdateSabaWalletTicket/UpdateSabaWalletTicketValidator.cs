@@ -18,15 +18,6 @@ public class UpdateSabaWalletTicketValidator : AbstractValidator<UpdateSabaWalle
             })
             .WithMessage("Customer IDs do not exist: {InvalidCustIds}");
 
-        RuleFor(x => x.TransIds)
-            .NotEmpty()
-            .Must(IsTransIdsValid)
-            .WithMessage("Transaction IDs are not valid.");
-    }
-
-    private bool IsTransIdsValid(string transIds)
-    {
-        var listTransId = transIds.Split(',').ToList();
-        return listTransId.TrueForAll(x => long.TryParse(x, out _));
+        RuleFor(x => x.TransId).GreaterThan(0);
     }
 }
