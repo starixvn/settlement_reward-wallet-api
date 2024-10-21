@@ -28,9 +28,9 @@ public class AddMsgCriteria : NonQueryCommand
 
     public int MsgContentsType { get; set; } = 100; // only for this project
 
-    public int Creator { get; set; }
+    public int Creator { get; set; } = Constants.Creator.Id;
 
-    public string CreatorName { get; set; } = string.Empty;
+    public string CreatorName { get; set; } = Constants.Creator.Name;
 
     public override string GetSettingKey() => "NAP_SpecialDelete_Message_Insert";
 

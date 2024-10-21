@@ -16,7 +16,7 @@ public class AddTargetMsgHandler
         this.xmlConvertService = xmlConvertService;
     }
 
-    public async Task<Result> HandleAsync(SabaWalletTicketItem item, int messageId, CancellationToken cancellationToken)
+    public async Task<Result> HandleAsync(SabaWalletTicketItem item, int messageId)
     {
         var message = CreateMessageFromTicket(item, messageId);
 
@@ -27,7 +27,7 @@ public class AddTargetMsgHandler
 
         await repository.ExecuteAsync(criteria);
 
-        return new Result("", "");
+        return new Result(criteria.ErrorCode.ToString(), criteria.ErrorMsg);
     }
 
     private Message CreateMessageFromTicket(SabaWalletTicketItem item, int messageId)

@@ -13,13 +13,13 @@ public class AddMsgHandler
         this.repository = repository;
     }
 
-    public async Task<int?> HandleAsync(SabaWalletTicketItem sabaWalletTicketItem, string level, CancellationToken cancellationToken)
+    public async Task<int?> HandleAsync(SabaWalletTicketItem sabaWalletTicketItem, string level)
     {
         var criteria = new AddMsgCriteria
         {
-            ContentEng = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.English, level),
-            ContentCh = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.Cantonese, level),
-            ContentCs = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.Mandarin, level),
+            ContentEng = CreateMessageContent(ContentLanguage.English, level),
+            ContentCh = CreateMessageContent(ContentLanguage.Cantonese, level),
+            ContentCs = CreateMessageContent(ContentLanguage.Mandarin, level),
         };
 
         await repository.ExecuteAsync(criteria);
@@ -27,35 +27,35 @@ public class AddMsgHandler
         return criteria.MessageId;
     }
 
-    private string CreateMessageContent(SabaWalletTicketItem ticket, string languageCode, string level)
+    private string CreateMessageContent(string languageCode, string level)
     {
-        var template = GetTemplate(ticket.ProgramId, level, languageCode);
+        var template = GetTemplate(level, languageCode);
 
         return template
             .Replace("@program_name", "");
     }
 
-    private string GetTemplate(int programId, string level, string languageCode) => (programId, level) switch
+    private string GetTemplate(string level, string languageCode) => (level) switch
     {
-        (_, Levels.Member) => GetTemplateForMember(1, languageCode),
-        (_, Levels.Agent) => GetTemplateForSMA(1, languageCode),
+        (Levels.Member) => GetTemplateForMember(languageCode),
+        (Levels.Agent) => GetTemplateForSMA(languageCode),
         _ => string.Empty
     };
 
-    private string GetTemplateForMember(int programId, string languageCode) => (programId, languageCode) switch
+    private string GetTemplateForMember(string languageCode) => (languageCode) switch
     {
-        (_, ContentLanguage.English) => MsgTemplateContent.MemberEng,
-        (_, ContentLanguage.Cantonese) => MsgTemplateContent.MemberCantonese,
-        (_, ContentLanguage.Mandarin) => MsgTemplateContent.MemberMandarin,
+        ContentLanguage.English => MsgTemplateContent.MemberEng,
+        ContentLanguage.Cantonese => MsgTemplateContent.MemberCantonese,
+        ContentLanguage.Mandarin => MsgTemplateContent.MemberMandarin,
         //(_, ContentLanguage.Indo) => MsgContent.MemberIndo,
         _ => string.Empty
     };
 
-    private string GetTemplateForSMA(int programId, string languageCode) => (programId, languageCode) switch
+    private string GetTemplateForSMA(string languageCode) => (languageCode) switch
     {
-        (_, ContentLanguage.English) => MsgTemplateContent.SMAEng,
-        (_, ContentLanguage.Cantonese) => MsgTemplateContent.SMACantonese,
-        (_, ContentLanguage.Mandarin) => MsgTemplateContent.SMAMandarin,
+        ContentLanguage.English => MsgTemplateContent.SMAEng,
+        ContentLanguage.Cantonese => MsgTemplateContent.SMACantonese,
+        ContentLanguage.Mandarin => MsgTemplateContent.SMAMandarin,
         //(_, ContentLanguage.Indo) => MsgContent.SMAIndo,
         _ => string.Empty
     };
