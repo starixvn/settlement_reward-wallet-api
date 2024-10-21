@@ -12,15 +12,16 @@ public class RewardWalletEventsConsumers : IConsumer<RewardWalletAdded>, IConsum
     private readonly AddTargetMsgHandler addTargetMsgHandler;
 
     public RewardWalletEventsConsumers(
-        ILogger<RewardWalletEventsConsumers> logger,
-        ISabaWalletTicketService sabaWalletTicketService,
-        AddMsgHandler addMsgHandler,
-        AddTargetMsgHandler addTargetMsgHandler)
+        ILogger<RewardWalletEventsConsumers> logger //,
+                                                    //ISabaWalletTicketService sabaWalletTicketService,
+                                                    //AddMsgHandler addMsgHandler,
+                                                    //AddTargetMsgHandler addTargetMsgHandler
+        )
     {
         this.logger = logger;
-        this.sabaWalletTicketService = sabaWalletTicketService;
-        this.addMsgHandler = addMsgHandler;
-        this.addTargetMsgHandler = addTargetMsgHandler;
+        //this.sabaWalletTicketService = sabaWalletTicketService;
+        //this.addMsgHandler = addMsgHandler;
+        //this.addTargetMsgHandler = addTargetMsgHandler;
     }
 
     public async Task Consume(ConsumeContext<RewardWalletUpdated> context)

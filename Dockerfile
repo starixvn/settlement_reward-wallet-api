@@ -3,19 +3,23 @@ FROM hub.nexdev.net/base/dotnet/core/sdk:8.0-alpine AS builder
 WORKDIR /src
 
 COPY src/Core/*.csproj ./src/Core/
+COPY src/RewardWallet.Contracts/*.csproj ./src/RewardWallet.Contracts/
+COPY src/RewardInfrastructure/*.csproj ./src/RewardInfrastructure/
 COPY src/RewardWallet/*.csproj ./src/RewardWallet/
-COPY src/RewardWalletApi/*.csproj ./src/RewardWalletApi/
+COPY src/RewardWallet.Api/*.csproj ./src/RewardWallet.Api/
 
 
 RUN dotnet nuget add source https://nuget.nexdev.net/api/v2
 RUN --mount=type=cache,target=/root/.nuget/packages \
-    dotnet restore ./src/RewardWalletApi/RewardWalletApi.csproj
+    dotnet restore ./src/RewardWallet.Api/RewardWallet.Api.csproj
 
 COPY src/Core/. ./src/Core/
-COPY src/RewardWallet/. ./src/RewardWallet/
-COPY src/RewardWalletApi/. ./src/RewardWalletApi/
+COPY src/RewardWallet.Contracts/ ./src/RewardWallet.Contracts/
+COPY src/RewardInfrastructure/ ./src/RewardInfrastructure/
+COPY src/RewardWallet/ ./src/RewardWallet/
+COPY src/RewardWallet.Api/. ./src/RewardWallet.Api/
 
-WORKDIR /src/src/RewardWalletApi
+WORKDIR /src/src/RewardWallet.Api
 
 RUN --mount=type=cache,target=/root/.nuget/packages \
 	dotnet publish -c release -o /app
@@ -33,4 +37,4 @@ RUN adduser --disabled-password \
   --gecos '' dotnetuser && chown -R dotnetuser /app
 USER dotnetuser
 
-ENTRYPOINT ["dotnet", "RewardWalletApi.dll"]
+ENTRYPOINT ["dotnet", "RewardWallet.Api.dll"]

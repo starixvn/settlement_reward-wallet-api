@@ -17,9 +17,9 @@ public class AddMsgHandler
     {
         var criteria = new AddMsgCriteria
         {
-            ContentEng = CreateMessageContent(ContentLanguage.English, level),
-            ContentCh = CreateMessageContent(ContentLanguage.Cantonese, level),
-            ContentCs = CreateMessageContent(ContentLanguage.Mandarin, level),
+            ContentEng = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.English, level),
+            ContentCh = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.Cantonese, level),
+            ContentCs = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.Mandarin, level),
         };
 
         await repository.ExecuteAsync(criteria);
@@ -27,7 +27,7 @@ public class AddMsgHandler
         return criteria.MessageId;
     }
 
-    private string CreateMessageContent(string languageCode, string level)
+    private string CreateMessageContent(SabaWalletTicketItem sabaWalletTicketItem, string languageCode, string level)
     {
         var template = GetTemplate(level, languageCode);
 
