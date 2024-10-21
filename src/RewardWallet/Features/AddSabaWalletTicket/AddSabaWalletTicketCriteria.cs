@@ -9,7 +9,7 @@ public record class ListCustItem(
 
 public class AddSabaWalletTicketCriteria : INonQueryCommand
 {
-    public short SId { get; set; }
+    public int SId { get; set; }
     public short ProgramId { get; set; }
     public byte WalletId { get; set; } = 2;
     public int Creator { get; set; }

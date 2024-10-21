@@ -39,8 +39,6 @@ public class AddSabaWalletTicketHandler
         var criteria = new WriteUserLogCriteria
         {
             Doing = "AddSabaWalletTicket",
-            CustId = 0,
-            ActionId = 0,
             SPName = "NAP_SabaWalletTicket_Ins",
             TrackingValue = JsonSerializer.Serialize(command),
         };
