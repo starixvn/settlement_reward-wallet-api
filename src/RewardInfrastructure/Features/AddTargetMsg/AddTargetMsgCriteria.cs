@@ -1,4 +1,5 @@
 ﻿using Fanex.Data.Repository;
+using RewardInfrastructure.Constants;
 
 namespace RewardInfrastructure.Features;
 
@@ -6,7 +7,7 @@ internal class AddTargetMsgCriteria : NonQueryCommand
 {
     public string XMLMessage { get; set; } = string.Empty;
 
-    public int CreatorId { get; set; }
+    public int CreatorId { get; set; } = Creator.Id;
 
     public int ErrorCode { get; set; }
 
