@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using RewardInfrastructure.Features;
 
 namespace RewardInfrastructure
@@ -9,6 +10,9 @@ namespace RewardInfrastructure
     {
         public static WebApplicationBuilder AddRewardInfrastructureModule(this WebApplicationBuilder builder)
         {
+            builder.Services
+                .AddScoped<AddTargetMsgHandler>()
+                .AddScoped<AddMsgHandler>();
 
             return builder;
         }

@@ -12,6 +12,7 @@ using Fanex.NAP.Client.Helpers.Web;
 using Fanex.NAP.Client.Services;
 using Fanex.NAP.Client.Session;
 using Fanex.RemotingRef;
+using Fanex.Settlement.Converter.Services;
 using ONEbook.UM;
 using ONEbook.UM.AspNetCore;
 using ONEbook.UM.Configurations;
@@ -52,6 +53,9 @@ public static class InitializeConfig
         services.AddTransient<ILogger, Logger>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddTransient<IDynamicRepository, DynamicRepository>();
+
+        services.AddTransient<XmlConvertService, XmlConvertServiceImp>();
+
 
         services.Configure<IConfiguration>(configuration);
     }

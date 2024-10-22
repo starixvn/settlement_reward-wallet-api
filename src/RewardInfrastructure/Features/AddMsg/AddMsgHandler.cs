@@ -13,7 +13,7 @@ public class AddMsgHandler
         this.repository = repository;
     }
 
-    public async Task<int?> HandleAsync(SabaWalletTicketItem sabaWalletTicketItem, string level)
+    public async Task<int> HandleAsync(SabaWalletTicketItem sabaWalletTicketItem, string level)
     {
         var criteria = new AddMsgCriteria
         {
@@ -22,9 +22,8 @@ public class AddMsgHandler
             ContentCs = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.Mandarin, level),
         };
 
-        await repository.ExecuteAsync(criteria);
+        return await repository.GetAsync<int>(criteria);
 
-        return criteria.MessageId;
     }
 
     private string CreateMessageContent(SabaWalletTicketItem sabaWalletTicketItem, string languageCode, string level)
@@ -32,17 +31,18 @@ public class AddMsgHandler
         var template = GetTemplate(level, languageCode);
 
         return template
-            .Replace("@program_name", "");
+            .Replace("@member_username", sabaWalletTicketItem.Username)
+            .Replace("@amount", $"{sabaWalletTicketItem.Amount}");
     }
 
     private string GetTemplate(string level, string languageCode) => (level) switch
     {
-        (Levels.Member) => GetTemplateForMember(languageCode),
-        (Levels.Agent) => GetTemplateForSMA(languageCode),
+        (Levels.Agent) => GetTemplateForAgent(languageCode),
+        (Levels.Super) => GetTemplateForSuperMaster(languageCode),
         _ => string.Empty
     };
 
-    private string GetTemplateForMember(string languageCode) => (languageCode) switch
+    private string GetTemplateForAgent(string languageCode) => (languageCode) switch
     {
         ContentLanguage.English => MsgTemplateContent.MemberEng,
         ContentLanguage.Cantonese => MsgTemplateContent.MemberCantonese,
@@ -51,7 +51,7 @@ public class AddMsgHandler
         _ => string.Empty
     };
 
-    private string GetTemplateForSMA(string languageCode) => (languageCode) switch
+    private string GetTemplateForSuperMaster(string languageCode) => (languageCode) switch
     {
         ContentLanguage.English => MsgTemplateContent.SMAEng,
         ContentLanguage.Cantonese => MsgTemplateContent.SMACantonese,

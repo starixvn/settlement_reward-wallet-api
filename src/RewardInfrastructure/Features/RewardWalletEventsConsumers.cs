@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Logging;
+using RewardInfrastructure.Constants;
 using RewardWallet.Contracts;
 
 namespace RewardInfrastructure.Features;
@@ -12,38 +13,42 @@ public class RewardWalletEventsConsumers : IConsumer<RewardWalletAdded>, IConsum
     private readonly AddTargetMsgHandler addTargetMsgHandler;
 
     public RewardWalletEventsConsumers(
-        ILogger<RewardWalletEventsConsumers> logger //,
-                                                    //ISabaWalletTicketService sabaWalletTicketService,
-                                                    //AddMsgHandler addMsgHandler,
-                                                    //AddTargetMsgHandler addTargetMsgHandler
-        )
+        ILogger<RewardWalletEventsConsumers> logger,
+        ISabaWalletTicketService sabaWalletTicketService,
+        AddMsgHandler addMsgHandler,
+        AddTargetMsgHandler addTargetMsgHandler)
     {
         this.logger = logger;
-        //this.sabaWalletTicketService = sabaWalletTicketService;
-        //this.addMsgHandler = addMsgHandler;
-        //this.addTargetMsgHandler = addTargetMsgHandler;
+        this.sabaWalletTicketService = sabaWalletTicketService;
+        this.addMsgHandler = addMsgHandler;
+        this.addTargetMsgHandler = addTargetMsgHandler;
     }
 
     public async Task Consume(ConsumeContext<RewardWalletUpdated> context)
     {
         logger.LogTrace("Consuming RewardWalletUpdated event", context.Message);
-        //var tickets = await sabaWalletTicketService.GetFeedback(context.Message.CustId, context.Message.TransId);
-        //var messageId = await addMsgHandler.HandleAsync(tickets.FirstOrDefault()!, Levels.Member);
-        //_ = await addTargetMsgHandler.HandleAsync(tickets.FirstOrDefault()!, messageId ?? 0);
-        //logger.LogTrace("Consum succees", context.Message);
+        if (context.Message is not null
+            && context.Message.IsComplaint == true
+            && context.Message.BeforeIsComplaint is null)
+        {
+            var tickets = await sabaWalletTicketService.GetFeedback(context.Message.CustId, context.Message.TransId);
+
+            await HandleCreateMsg(tickets.First(), Levels.Agent);
+            await HandleCreateMsg(tickets.First(), Levels.Master);
+
+            logger.LogTrace("Consum successfulle", tickets.First());
+        }
+
     }
 
     public Task Consume(ConsumeContext<RewardWalletAdded> context)
     {
-        logger.LogTrace("Consuming RewardWalletAdded event", context.Message);
-
         return Task.CompletedTask;
     }
 
-    private bool IsExistMember(IEnumerable<SabaWalletTicketItem> tickets)
-    => tickets.Any(x => x.CustId != 0);
-
-    private bool IsExistSMA(IEnumerable<SabaWalletTicketItem> tickets)
-        => tickets.Any(x => x.AgentId != 0 || x.MasterId != 0 || x.SuperId != 0);
-
+    private async Task HandleCreateMsg(SabaWalletTicketItem item, string level)
+    {
+        var messageId = await addMsgHandler.HandleAsync(item, Levels.Agent);
+        await addTargetMsgHandler.HandleAsync(item, messageId, level);
+    }
 }

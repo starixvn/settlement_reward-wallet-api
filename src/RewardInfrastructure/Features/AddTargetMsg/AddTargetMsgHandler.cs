@@ -1,6 +1,7 @@
 ﻿using Core.Models;
 using Fanex.Data.Repository;
 using Fanex.Settlement.Converter.Services;
+using RewardInfrastructure.Constants;
 using RewardWallet.Contracts;
 
 namespace RewardInfrastructure.Features;
@@ -16,9 +17,9 @@ public class AddTargetMsgHandler
         this.xmlConvertService = xmlConvertService;
     }
 
-    public async Task<Result> HandleAsync(SabaWalletTicketItem item, int messageId)
+    public async Task<Result> HandleAsync(SabaWalletTicketItem item, int messageId, string level)
     {
-        var message = CreateMessageFromTicket(item, messageId);
+        var message = CreateMessageFromTicket(item, messageId, level);
 
         var criteria = new AddTargetMsgCriteria
         {
@@ -30,13 +31,11 @@ public class AddTargetMsgHandler
         return new Result(criteria.ErrorCode.ToString(), criteria.ErrorMsg);
     }
 
-    private Message CreateMessageFromTicket(SabaWalletTicketItem item, int messageId)
+    private Message CreateMessageFromTicket(SabaWalletTicketItem item, int messageId, string level)
     {
-        List<Customer> participants = [
-            new Customer(item.CustId,item.Username),
-            new Customer(item.AgentId,item.AgentUsername),
-            new Customer(item.MasterId,item.MasterUsername),
-            new Customer(item.SuperId,item.SuperUsername)];
+        List<Customer> participants = level == Levels.Agent
+            ? [new Customer(item.AgentId, item.AgentUsername)]
+            : [new Customer(item.MasterId, item.MasterUsername), new Customer(item.SuperId, item.SuperUsername)];
 
         var messageItems = participants
             .Where(p => p.Id != 0)

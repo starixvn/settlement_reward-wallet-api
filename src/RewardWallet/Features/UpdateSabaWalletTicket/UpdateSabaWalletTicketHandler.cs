@@ -19,7 +19,7 @@ public class UpdateSabaWalletTicketHandler
     {
         var updateSabaWalletTicketCriteria = command.Adapt<UpdateSabaWalletTicketCriteria>();
 
-        var beforeIsComplaint = false; // await repository.GetAsync<bool>(updateSabaWalletTicketCriteria);
+        var beforeIsComplaint = await repository.GetAsync<bool?>(updateSabaWalletTicketCriteria);
 
         var rewardWalletUpdated = command.Adapt<RewardWalletUpdated>() with { BeforeIsComplaint = beforeIsComplaint };
 

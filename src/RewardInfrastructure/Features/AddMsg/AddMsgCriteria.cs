@@ -26,7 +26,7 @@ public class AddMsgCriteria : NonQueryCommand
 
     public short MsgType { get; set; } = 1;
 
-    public int MsgContentsType { get; set; } = 100; // only for this project
+    public int MsgContentsType { get; set; } = 0; // only for this project
 
     public int Creator { get; set; } = Constants.Creator.Id;
 
