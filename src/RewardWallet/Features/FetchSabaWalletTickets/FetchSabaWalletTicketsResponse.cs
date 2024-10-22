@@ -1,11 +1,20 @@
 ﻿using System.Collections;
-using RewardWallet.Contracts;
 
 namespace RewardWallet.Features;
 
-public record class FetchSabaWalletTicketsResponse(IEnumerable<SabaWalletTicketItem> Items) : IEnumerable<SabaWalletTicketItem>
+
+public class FetchSabaWalletTicketsItemResponse
 {
-    public IEnumerator<SabaWalletTicketItem> GetEnumerator()
+    public long TransId { get; set; }
+    public decimal Amount { get; set; }
+    public short ProgramId { get; set; }
+    public DateTime APaymentDate { get; set; }
+    public bool? IsComplaint { get; set; }
+}
+
+public record class FetchSabaWalletTicketsResponse(IEnumerable<FetchSabaWalletTicketsItemResponse> Items) : IEnumerable<FetchSabaWalletTicketsItemResponse>
+{
+    public IEnumerator<FetchSabaWalletTicketsItemResponse> GetEnumerator()
         => Items.GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator()

@@ -1,6 +1,4 @@
-﻿using RewardWallet.Contracts;
-
-namespace RewardWallet.Features;
+﻿namespace RewardWallet.Features;
 
 public class FetchSabaWalletTicketsHandler
 {
@@ -15,7 +13,7 @@ public class FetchSabaWalletTicketsHandler
     {
         var criteria = query.Adapt<FetchSabaWalletTicketsCriteria>();
 
-        var results = await repository.FetchAsync<SabaWalletTicketItem>(criteria);
+        var results = await repository.FetchAsync<FetchSabaWalletTicketsItemResponse>(criteria);
 
         return new FetchSabaWalletTicketsResponse(results);
 
