@@ -7,24 +7,42 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
 {
     private readonly IRemotingRefService remotingRefService;
     private readonly CheckCustomerHandler checkCustomerHandler;
+
+    private const string ProgramIdErrorCode = "1";
+    private const string ProgramIdErrorMessage = "Invalid Program ID";
+
+    private const string CustIdErrorCode = "2";
+    private const string CustIdErrorMessage = "Invalid Credit CustID or Amount";
+
+    //private const string NotExistsCustIdErrorCode = "3";
+    //private const string NotExistsCustIdErrorMessage = "Invalid Credit Cust ID: {InvalidCustIds}";
+
     public AddSabaWalletTicketValidator(IRemotingRefService remotingRefService, CheckCustomerHandler checkCustomerHandler)
     {
         this.remotingRefService = remotingRefService;
         this.checkCustomerHandler = checkCustomerHandler;
 
         RuleFor(x => x.ProgramId)
-            .GreaterThan((short)0);
+            .GreaterThan((short)0)
+            .WithErrorCode(ProgramIdErrorCode)
+            .WithMessage(ProgramIdErrorMessage);
 
         RuleFor(x => x.ProgramId)
-            .Must(IsProgramExists);
+            .Must(IsProgramExists)
+            .WithErrorCode(ProgramIdErrorCode)
+            .WithMessage(ProgramIdErrorMessage);
 
         RuleFor(x => x.Customers)
             .NotEmpty();
 
         RuleForEach(x => x.Customers).ChildRules(c =>
         {
-            c.RuleFor(x => x.CustId).GreaterThan(0);
-            c.RuleFor(x => x.Amount).GreaterThan(0);
+            c.RuleFor(x => x.CustId).GreaterThan(0)
+                .WithErrorCode(CustIdErrorCode)
+                .WithMessage(CustIdErrorMessage);
+            c.RuleFor(x => x.Amount).GreaterThan(0)
+                .WithErrorCode(CustIdErrorCode)
+                .WithMessage(CustIdErrorMessage);
         });
 
         RuleFor(x => x.Customers)
@@ -35,7 +53,8 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
                 context.MessageFormatter.AppendArgument("InvalidCustIds", string.Join(", ", invalidCustIds));
                 return isValid;
             })
-            .WithMessage("Customer IDs do not exist: {InvalidCustIds}");
+                .WithErrorCode(CustIdErrorCode)
+                .WithMessage(CustIdErrorMessage);
 
     }
 

@@ -4,10 +4,15 @@ namespace RewardWallet.Features;
 
 public class UpdateSabaWalletTicketValidator : AbstractValidator<UpdateSabaWalletTicketCommand>
 {
+    private const string NotExistsCustIdErrorCode = "3";
+    private const string NotExistsCustIdErrorMessage = "Not Valid Credit CustId";
+
     public UpdateSabaWalletTicketValidator(CheckCustomerHandler checkCustomerHandler)
     {
         RuleFor(x => x.CustId)
-            .GreaterThan(0);
+            .GreaterThan(0)
+     .WithErrorCode(NotExistsCustIdErrorCode)
+            .WithMessage(NotExistsCustIdErrorMessage);
 
         RuleFor(x => new { x.CustId, x.SiteDbGroupId })
             .Must((x, _, context) =>
@@ -16,7 +21,8 @@ public class UpdateSabaWalletTicketValidator : AbstractValidator<UpdateSabaWalle
                 context.MessageFormatter.AppendArgument("InvalidCustIds", string.Join(", ", invalidCustIds));
                 return isValid;
             })
-            .WithMessage("Customer IDs do not exist: {InvalidCustIds}");
+            .WithErrorCode(NotExistsCustIdErrorCode)
+            .WithMessage(NotExistsCustIdErrorMessage);
 
         RuleFor(x => x.TransId).GreaterThan(0);
     }
