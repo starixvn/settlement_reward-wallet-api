@@ -53,8 +53,9 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
                 context.MessageFormatter.AppendArgument("InvalidCustIds", string.Join(", ", invalidCustIds));
                 return isValid;
             })
-                .WithErrorCode(CustIdErrorCode)
-                .WithMessage(CustIdErrorMessage);
+            .Must(IsNotDupCustId)
+            .WithErrorCode(CustIdErrorCode)
+            .WithMessage(CustIdErrorMessage);
 
     }
 
@@ -68,5 +69,10 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
             string.Empty);
 
         return !string.IsNullOrEmpty(program);
+    }
+
+    private bool IsNotDupCustId(List<Customer> customers)
+    {
+        return customers.DistinctBy(x => x.CustId).Count() == customers.Count;
     }
 }
