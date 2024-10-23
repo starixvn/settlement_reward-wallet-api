@@ -14,7 +14,7 @@ public class AddTargetMsgHandler(IDynamicRepository repository, XmlConvertServic
 
         var criteria = new AddTargetMsgCriteria
         {
-            XMLMessage = xmlConvertService.Serialize(message),
+            XMLMessage = xmlConvertService.Serialize(message)
         };
 
         await repository.ExecuteAsync(criteria);

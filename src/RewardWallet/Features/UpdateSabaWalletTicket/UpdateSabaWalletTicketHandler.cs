@@ -10,11 +10,11 @@ public class UpdateSabaWalletTicketHandler(IDynamicRepository repository, IBus b
     {
         var updateSabaWalletTicketCriteria = command.Adapt<UpdateSabaWalletTicketCriteria>();
 
-        var beforeIsComplaint = await repository.GetAsync<bool?>(updateSabaWalletTicketCriteria);
+        var beforeIsComplaint = await repository.GetAsync<bool?>(updateSabaWalletTicketCriteria, cancellationToken: cancellationToken);
 
         var rewardWalletUpdated = command.Adapt<RewardWalletUpdated>() with { BeforeIsComplaint = beforeIsComplaint };
 
-        await bus.Publish(rewardWalletUpdated);
+        await bus.Publish(rewardWalletUpdated, cancellationToken);
 
         return new Result("0", "Success");
     }

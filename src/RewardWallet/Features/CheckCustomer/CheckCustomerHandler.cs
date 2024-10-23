@@ -9,7 +9,7 @@ public class CheckCustomerHandler(IDynamicRepository repository)
             CustIds = cusIds,
             SiteDbGroupId = SiteDbGroupId
         };
-        var results = repository.Fetch<string>(criteria);
+        var results = repository.Fetch<string>(criteria).ToList();
 
         if (results.Any())
         {

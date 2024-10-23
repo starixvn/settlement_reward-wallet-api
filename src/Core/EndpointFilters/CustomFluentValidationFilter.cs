@@ -22,17 +22,17 @@ public class CustomFluentValidationFilter(IServiceProvider serviceProvider) : IE
             return await next(context);
         }
 
-        var ValidationContextType = typeof(ValidationContext<>).MakeGenericType(argument.GetType());
-        var validationContext = Activator.CreateInstance(ValidationContextType, argument) as IValidationContext;
+        var validationContextType = typeof(ValidationContext<>).MakeGenericType(argument.GetType());
+        var validationContext = Activator.CreateInstance(validationContextType, argument) as IValidationContext;
         var validationResult = await validator.ValidateAsync(validationContext);
 
-        if (!validationResult.IsValid)
+        if (validationResult.IsValid)
         {
-            var errors = validationResult.Errors.Select(e => new { e.ErrorCode, e.ErrorMessage });
-            return Results.BadRequest(errors.First());
+            return await next(context);
         }
 
-        return await next(context);
+        var errors = validationResult.Errors.Select(e => new { e.ErrorCode, e.ErrorMessage });
+        return Results.BadRequest(errors.First());
     }
 }
 

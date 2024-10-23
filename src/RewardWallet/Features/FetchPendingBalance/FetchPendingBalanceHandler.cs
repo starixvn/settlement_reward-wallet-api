@@ -6,7 +6,7 @@ public class FetchPendingBalanceHandler(IDynamicRepository repository)
     {
         var criteria = query.Adapt<FetchPendingBalanceCriteria>();
 
-        var result = await repository.GetAsync<FetchPendingBalanceResponse>(criteria);
+        var result = await repository.GetAsync<FetchPendingBalanceResponse>(criteria, cancellationToken: cancellationToken);
 
         return result;
     }

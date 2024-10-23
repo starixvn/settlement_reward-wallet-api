@@ -73,7 +73,7 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
         return !string.IsNullOrEmpty(program);
     }
 
-    private bool IsNotDupCustId(List<Customer> customers)
+    private static bool IsNotDupCustId(List<Customer> customers)
     {
         return customers.DistinctBy(x => x.CustId).Count() == customers.Count;
     }

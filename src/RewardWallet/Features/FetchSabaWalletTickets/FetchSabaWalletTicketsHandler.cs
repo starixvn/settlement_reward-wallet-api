@@ -6,7 +6,7 @@ public class FetchSabaWalletTicketsHandler(IDynamicRepository repository)
     {
         var criteria = query.Adapt<FetchSabaWalletTicketsCriteria>();
 
-        var results = await repository.FetchAsync<FetchSabaWalletTicketsItemResponse>(criteria);
+        var results = await repository.FetchAsync<FetchSabaWalletTicketsItemResponse>(criteria, cancellationToken: cancellationToken);
 
         return new FetchSabaWalletTicketsResponse(results);
     }

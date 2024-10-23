@@ -3,4 +3,4 @@
 public class TestingResponse
 {
     public string Value { get; set; }
-};
+}

@@ -14,17 +14,19 @@ public class LogRequestFilter(IOptions<AppSettings> appSettingsKey) : IEndpointF
     public async ValueTask<object> InvokeAsync(EndpointFilterInvocationContext context,
         EndpointFilterDelegate next)
     {
-        if (appSettingsKey.Value.EnableLogRequest)
+        if (!appSettingsKey.Value.EnableLogRequest)
         {
-            var model = context.Arguments[0];
-            var serialString = JsonSerializer.Serialize(model);
-            var url = context.HttpContext.Request.GetDisplayUrl();
-            var stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine($"RewardWalletApi - Url: {url}");
-            stringBuilder.AppendLine($"Params: {serialString}");
-
-            await new Logger().InfoAsync(stringBuilder.ToString());
+            return await next(context);
         }
+
+        var model = context.Arguments[0];
+        var serialString = JsonSerializer.Serialize(model);
+        var url = context.HttpContext.Request.GetDisplayUrl();
+        var stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine($"RewardWalletApi - Url: {url}");
+        stringBuilder.AppendLine($"Params: {serialString}");
+
+        await new Logger().InfoAsync(stringBuilder.ToString());
 
         return await next(context);
     }

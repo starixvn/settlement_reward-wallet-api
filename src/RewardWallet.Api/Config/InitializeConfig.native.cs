@@ -65,7 +65,7 @@ public static class InitializeConfig
         service.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect($"{redisConfig}"));
         service.AddSingleton<ICache>(new RedisCache(new RedisCacheOptions
         {
-            ConnectionString = redisConfig,
+            ConnectionString = redisConfig
         }));
         service.AddSingleton<ICacheService>(new CacheService());
     }
