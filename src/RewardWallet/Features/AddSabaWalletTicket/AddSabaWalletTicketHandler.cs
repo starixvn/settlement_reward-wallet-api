@@ -1,17 +1,10 @@
-﻿using System.Text.Json;
-using Core.Models;
+﻿using Core.Models;
+using System.Text.Json;
 
-namespace RewardWallet.Features;
+namespace RewardWallet.Features.AddSabaWalletTicket;
 
-public class AddSabaWalletTicketHandler
+public class AddSabaWalletTicketHandler(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository;
-
-    public AddSabaWalletTicketHandler(IDynamicRepository repository)
-    {
-        this.repository = repository;
-    }
-
     public async Task<Result> HandleAsync(AddSabaWalletTicketCommand command, CancellationToken cancellationToken)
     {
         var addSabaProgramStatusCriteria = command.Adapt<AddSabaProgramStatusCriteria>();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace RewardWallet.Features;
+namespace RewardWallet.Features.CheckCustomer;
 
 public static class CheckCustomerExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RewardWallet.Contracts;
 
-namespace RewardWallet.Features;
+namespace RewardWallet.Features.FetchFeedbackTickets;
 
 public static class FetchFeedbackTicketsExtensions
 {

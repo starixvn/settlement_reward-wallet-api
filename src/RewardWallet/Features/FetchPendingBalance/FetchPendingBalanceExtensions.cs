@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace RewardWallet.Features;
+namespace RewardWallet.Features.FetchPendingBalance;
 
 public static class FetchPendingBalanceExtensions
 {

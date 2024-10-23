@@ -2,19 +2,10 @@
 using MassTransit;
 using RewardWallet.Contracts;
 
-namespace RewardWallet.Features;
+namespace RewardWallet.Features.UpdateSabaWalletTicket;
 
-public class UpdateSabaWalletTicketHandler
+public class UpdateSabaWalletTicketHandler(IDynamicRepository repository, IBus bus)
 {
-    private readonly IDynamicRepository repository;
-    private readonly IBus bus;
-
-    public UpdateSabaWalletTicketHandler(IDynamicRepository repository, IBus bus)
-    {
-        this.repository = repository;
-        this.bus = bus;
-    }
-
     public async Task<Result> HandleAsync(UpdateSabaWalletTicketCommand command, CancellationToken cancellationToken)
     {
         var updateSabaWalletTicketCriteria = command.Adapt<UpdateSabaWalletTicketCriteria>();

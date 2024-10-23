@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 
-namespace RewardWallet.Features;
-
+namespace RewardWallet.Features.FetchSabaWalletTickets;
 
 public class FetchSabaWalletTicketsItemResponse
 {

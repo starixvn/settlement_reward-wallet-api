@@ -1,16 +1,9 @@
 ﻿using RewardWallet.Contracts;
 
-namespace RewardWallet.Features;
+namespace RewardWallet.Features.FetchFeedbackTickets;
 
-public class SabaWalletTicketService : ISabaWalletTicketService
+public class SabaWalletTicketService(IDynamicRepository repository) : ISabaWalletTicketService
 {
-    private readonly IDynamicRepository repository;
-
-    public SabaWalletTicketService(IDynamicRepository repository)
-    {
-        this.repository = repository;
-    }
-
     public async Task<List<SabaWalletTicketItem>> GetFeedback(int cusId, long transId)
     {
         var criteria = new FetchFeedbackTicketsCriteria

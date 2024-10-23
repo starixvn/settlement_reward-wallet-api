@@ -1,4 +1,6 @@
-﻿namespace RewardWallet.Features;
+﻿using RewardWallet.Features.FetchPendingBalance;
+
+namespace RewardWallet.Features;
 
 public class FetchPendingBalanceHandler
 {

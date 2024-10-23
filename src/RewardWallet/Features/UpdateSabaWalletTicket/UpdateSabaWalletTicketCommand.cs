@@ -1,4 +1,4 @@
-﻿namespace RewardWallet.Features;
+﻿namespace RewardWallet.Features.UpdateSabaWalletTicket;
 
 public record class UpdateSabaWalletTicketCommand(
     int CustId,

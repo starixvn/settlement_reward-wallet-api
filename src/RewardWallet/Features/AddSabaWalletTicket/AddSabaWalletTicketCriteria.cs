@@ -1,7 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RewardWallet.Features;
-
+namespace RewardWallet.Features.AddSabaWalletTicket;
 
 public record class ListCustItem(
     [property: JsonPropertyName("c")] int CustId,
@@ -14,6 +13,7 @@ public class AddSabaWalletTicketCriteria : INonQueryCommand
     public byte WalletId { get; set; } = 2;
     public int Creator { get; set; }
     public string ListCust { get; set; }
+
     public string GetSettingKey() => "NAP_SabaWalletTicket_Ins";
 
     public bool IsValid() => !string.IsNullOrEmpty(ListCust);

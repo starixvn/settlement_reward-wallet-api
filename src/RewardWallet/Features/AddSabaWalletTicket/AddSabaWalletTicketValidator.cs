@@ -1,7 +1,8 @@
 ﻿using Fanex.RemotingRef;
 using FluentValidation;
+using RewardWallet.Features.CheckCustomer;
 
-namespace RewardWallet.Features;
+namespace RewardWallet.Features.AddSabaWalletTicket;
 
 public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicketCommand>
 {
@@ -56,9 +57,7 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
             .Must(IsNotDupCustId)
             .WithErrorCode(CustIdErrorCode)
             .WithMessage(CustIdErrorMessage);
-
     }
-
 
     private bool IsProgramExists(short programId)
     {

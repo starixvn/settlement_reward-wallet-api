@@ -1,4 +1,4 @@
-﻿namespace RewardWallet.Features;
+﻿namespace RewardWallet.Features.FetchSabaWalletTickets;
 
 public record class FetchSabaWalletTicketsQuery(
     int CustId,

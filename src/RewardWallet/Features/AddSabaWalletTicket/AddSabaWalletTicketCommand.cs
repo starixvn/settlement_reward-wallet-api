@@ -1,4 +1,4 @@
-﻿namespace RewardWallet.Features;
+﻿namespace RewardWallet.Features.AddSabaWalletTicket;
 
 public record class AddSabaWalletTicketCommand(
     short ProgramId,

@@ -1,17 +1,9 @@
-﻿namespace RewardWallet.Features;
+﻿namespace RewardWallet.Features.CheckCustomer;
 
-public class CheckCustomerHandler
+public class CheckCustomerHandler(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository;
-
-    public CheckCustomerHandler(IDynamicRepository repository)
-    {
-        this.repository = repository;
-    }
-
     public bool IsCustIdsExists(string cusIds, short SiteDbGroupId, out string inValidCusIds)
     {
-
         var criteria = new CheckCustomerCriteria
         {
             CustIds = cusIds,

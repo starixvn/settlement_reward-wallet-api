@@ -1,4 +1,3 @@
-using System.Reflection;
 using Core.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -7,6 +6,7 @@ using RewardInfrastructure;
 using RewardWallet;
 using RewardWallet.Api.Config;
 using RewardWallet.Api.Middleware;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,11 +43,11 @@ builder.Services.AddMassTransit(x =>
 
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
-app.UseSwagger();
-app.UseSwaggerUI();
-//?}
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.MapHealthChecks("/health");
 

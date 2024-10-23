@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
+using RewardWallet.Features.CheckCustomer;
 
-namespace RewardWallet.Features;
+namespace RewardWallet.Features.UpdateSabaWalletTicket;
 
 public class UpdateSabaWalletTicketValidator : AbstractValidator<UpdateSabaWalletTicketCommand>
 {

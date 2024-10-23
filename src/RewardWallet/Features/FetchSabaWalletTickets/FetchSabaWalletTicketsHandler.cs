@@ -1,14 +1,7 @@
-﻿namespace RewardWallet.Features;
+﻿namespace RewardWallet.Features.FetchSabaWalletTickets;
 
-public class FetchSabaWalletTicketsHandler
+public class FetchSabaWalletTicketsHandler(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository;
-
-    public FetchSabaWalletTicketsHandler(IDynamicRepository repository)
-    {
-        this.repository = repository;
-    }
-
     public async Task<FetchSabaWalletTicketsResponse> HandleAsync(FetchSabaWalletTicketsQuery query, CancellationToken cancellationToken)
     {
         var criteria = query.Adapt<FetchSabaWalletTicketsCriteria>();
@@ -16,6 +9,5 @@ public class FetchSabaWalletTicketsHandler
         var results = await repository.FetchAsync<FetchSabaWalletTicketsItemResponse>(criteria);
 
         return new FetchSabaWalletTicketsResponse(results);
-
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace RewardWallet.Features;
+﻿namespace RewardWallet.Features.FetchSabaWalletTickets;
 
 public class FetchSabaWalletTicketsCriteria : CriteriaBase
 {
