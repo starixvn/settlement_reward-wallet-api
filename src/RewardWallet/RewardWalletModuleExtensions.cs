@@ -35,7 +35,6 @@ public static class RewardWalletModuleExtensions
             .MapGroup($"api/{Constants.ModuleName.ToLower()}")
             .WithTags($"{Constants.ModuleName}")
             .AddCustomFluentValidationFilter()
-            .AddLogRequestFilter()
 
             .MapFetchBalance()
             .MapFetchSabaWalletTickets()
