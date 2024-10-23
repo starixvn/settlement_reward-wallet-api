@@ -1,8 +1,8 @@
 ﻿namespace RewardWallet.Contracts;
 
-public record class RewardWalletAdded();
+public record RewardWalletAdded;
 
-public record class RewardWalletUpdated(
+public record RewardWalletUpdated(
     int CustId,
     long TransId,
     bool? IsComplaint,

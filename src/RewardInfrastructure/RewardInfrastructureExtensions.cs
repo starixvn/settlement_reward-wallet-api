@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using RewardInfrastructure.Features;
+using RewardInfrastructure.Features.AddMsg;
+using RewardInfrastructure.Features.AddTargetMsg;
 
 namespace RewardInfrastructure
 {

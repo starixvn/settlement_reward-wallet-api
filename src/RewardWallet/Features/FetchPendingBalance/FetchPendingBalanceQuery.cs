@@ -1,3 +1,3 @@
 ﻿namespace RewardWallet.Features.FetchPendingBalance;
 
-public record class FetchPendingBalanceQuery(int CustId);
+public record FetchPendingBalanceQuery(int CustId);

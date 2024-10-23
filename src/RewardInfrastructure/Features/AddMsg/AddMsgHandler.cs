@@ -2,17 +2,10 @@
 using RewardInfrastructure.Constants;
 using RewardWallet.Contracts;
 
-namespace RewardInfrastructure.Features;
+namespace RewardInfrastructure.Features.AddMsg;
 
-public class AddMsgHandler
+public class AddMsgHandler(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository;
-
-    public AddMsgHandler(IDynamicRepository repository)
-    {
-        this.repository = repository;
-    }
-
     public async Task<int> HandleAsync(SabaWalletTicketItem sabaWalletTicketItem, string level)
     {
         var criteria = new AddMsgCriteria
@@ -23,10 +16,9 @@ public class AddMsgHandler
         };
 
         return await repository.GetAsync<int>(criteria);
-
     }
 
-    private string CreateMessageContent(SabaWalletTicketItem sabaWalletTicketItem, string languageCode, string level)
+    private static string CreateMessageContent(SabaWalletTicketItem sabaWalletTicketItem, string languageCode, string level)
     {
         var template = GetTemplate(level, languageCode);
 
@@ -35,14 +27,14 @@ public class AddMsgHandler
             .Replace("@amount", $"{sabaWalletTicketItem.Amount}");
     }
 
-    private string GetTemplate(string level, string languageCode) => (level) switch
+    private static string GetTemplate(string level, string languageCode) => (level) switch
     {
         (Levels.Agent) => GetTemplateForAgent(languageCode),
         (Levels.Super) => GetTemplateForSuperMaster(languageCode),
         _ => string.Empty
     };
 
-    private string GetTemplateForAgent(string languageCode) => (languageCode) switch
+    private static string GetTemplateForAgent(string languageCode) => (languageCode) switch
     {
         ContentLanguage.English => MsgTemplateContent.MemberEng,
         ContentLanguage.Cantonese => MsgTemplateContent.MemberCantonese,
@@ -51,7 +43,7 @@ public class AddMsgHandler
         _ => string.Empty
     };
 
-    private string GetTemplateForSuperMaster(string languageCode) => (languageCode) switch
+    private static string GetTemplateForSuperMaster(string languageCode) => (languageCode) switch
     {
         ContentLanguage.English => MsgTemplateContent.SMAEng,
         ContentLanguage.Cantonese => MsgTemplateContent.SMACantonese,

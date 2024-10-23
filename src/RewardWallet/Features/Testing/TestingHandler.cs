@@ -2,7 +2,7 @@
 
 public class TestingHandler
 {
-    public async Task<TestingResponse> HandleAsync(CancellationToken cancellationToken)
+    public TestingResponse HandleAsync()
     {
         return new TestingResponse
         {

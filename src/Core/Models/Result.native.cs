@@ -1,9 +1,8 @@
-﻿
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Core.Models;
 
-public record class Result(string ErrorCode, string ErrorMessage)
+public record Result(string ErrorCode, string ErrorMessage)
 {
     [JsonIgnore]
     public bool IsSuccess => string.IsNullOrEmpty(ErrorCode) || ErrorCode == "0";

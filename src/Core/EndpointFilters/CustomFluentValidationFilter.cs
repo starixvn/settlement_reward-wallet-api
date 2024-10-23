@@ -4,16 +4,9 @@ using Microsoft.AspNetCore.Routing;
 
 namespace Core.EndpointFilters;
 
-public class CustomFluentValidationFilter : IEndpointFilter
+public class CustomFluentValidationFilter(IServiceProvider serviceProvider) : IEndpointFilter
 {
-    private readonly IServiceProvider serviceProvider;
-
-    public CustomFluentValidationFilter(IServiceProvider serviceProvider)
-    {
-        this.serviceProvider = serviceProvider;
-    }
-
-    public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
+    public async ValueTask<object> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
         var argument = context.Arguments.FirstOrDefault(arg => arg != null);
 
@@ -23,9 +16,8 @@ public class CustomFluentValidationFilter : IEndpointFilter
         }
 
         var validatorType = typeof(IValidator<>).MakeGenericType(argument.GetType());
-        var validator = serviceProvider.GetService(validatorType) as IValidator;
 
-        if (validator == null)
+        if (serviceProvider.GetService(validatorType) is not IValidator validator)
         {
             return await next(context);
         }
@@ -43,7 +35,6 @@ public class CustomFluentValidationFilter : IEndpointFilter
         return await next(context);
     }
 }
-
 
 public static class CustomFluentValidationFilterExtensions
 {

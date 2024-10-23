@@ -1,44 +1,26 @@
 ﻿using MassTransit;
-using Microsoft.Extensions.Logging;
 using RewardInfrastructure.Constants;
+using RewardInfrastructure.Features.AddMsg;
+using RewardInfrastructure.Features.AddTargetMsg;
 using RewardWallet.Contracts;
 
 namespace RewardInfrastructure.Features;
 
-public class RewardWalletEventsConsumers : IConsumer<RewardWalletAdded>, IConsumer<RewardWalletUpdated>
+public class RewardWalletEventsConsumers(
+    ISabaWalletTicketService sabaWalletTicketService,
+    AddMsgHandler addMsgHandler,
+    AddTargetMsgHandler addTargetMsgHandler)
+    : IConsumer<RewardWalletAdded>, IConsumer<RewardWalletUpdated>
 {
-    private readonly ILogger logger;
-    private readonly ISabaWalletTicketService sabaWalletTicketService;
-    private readonly AddMsgHandler addMsgHandler;
-    private readonly AddTargetMsgHandler addTargetMsgHandler;
-
-    public RewardWalletEventsConsumers(
-        ILogger<RewardWalletEventsConsumers> logger,
-        ISabaWalletTicketService sabaWalletTicketService,
-        AddMsgHandler addMsgHandler,
-        AddTargetMsgHandler addTargetMsgHandler)
-    {
-        this.logger = logger;
-        this.sabaWalletTicketService = sabaWalletTicketService;
-        this.addMsgHandler = addMsgHandler;
-        this.addTargetMsgHandler = addTargetMsgHandler;
-    }
-
     public async Task Consume(ConsumeContext<RewardWalletUpdated> context)
     {
-        logger.LogTrace("Consuming RewardWalletUpdated event", context.Message);
-        if (context.Message is not null
-            && context.Message.IsComplaint == true
-            && context.Message.BeforeIsComplaint is null)
+        if (context.Message is { IsComplaint: true, BeforeIsComplaint: null })
         {
             var tickets = await sabaWalletTicketService.GetFeedback(context.Message.CustId, context.Message.TransId);
 
-            await HandleCreateMsg(tickets.First(), Levels.Agent);
-            await HandleCreateMsg(tickets.First(), Levels.Master);
-
-            logger.LogTrace("Consum successfulle", tickets.First());
+            await HandleCreateMsg(tickets[0], Levels.Agent);
+            await HandleCreateMsg(tickets[0], Levels.Master);
         }
-
     }
 
     public Task Consume(ConsumeContext<RewardWalletAdded> context)

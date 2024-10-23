@@ -1,16 +1,7 @@
-﻿using RewardWallet.Features.FetchPendingBalance;
+﻿namespace RewardWallet.Features.FetchPendingBalance;
 
-namespace RewardWallet.Features;
-
-public class FetchPendingBalanceHandler
+public class FetchPendingBalanceHandler(IDynamicRepository repository)
 {
-    private readonly IDynamicRepository repository;
-
-    public FetchPendingBalanceHandler(IDynamicRepository repository)
-    {
-        this.repository = repository;
-    }
-
     public async Task<FetchPendingBalanceResponse> HandleAsync(FetchPendingBalanceQuery query, CancellationToken cancellationToken)
     {
         var criteria = query.Adapt<FetchPendingBalanceCriteria>();

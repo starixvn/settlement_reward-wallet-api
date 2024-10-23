@@ -1,7 +1,7 @@
 ﻿using Fanex.Data.Repository;
 using RewardInfrastructure.Constants;
 
-namespace RewardInfrastructure.Features;
+namespace RewardInfrastructure.Features.AddTargetMsg;
 
 internal class AddTargetMsgCriteria : NonQueryCommand
 {

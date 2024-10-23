@@ -1,7 +1,7 @@
 ﻿using Fanex.Data;
 using Fanex.Data.Repository;
 
-namespace RewardInfrastructure.Features;
+namespace RewardInfrastructure.Features.AddMsg;
 
 public class AddMsgCriteria : NonQueryCommand
 {
@@ -26,7 +26,7 @@ public class AddMsgCriteria : NonQueryCommand
 
     public short MsgType { get; set; } = 1;
 
-    public int MsgContentsType { get; set; } = 0; // only for this project
+    public int MsgContentsType { get; set; } = 0;
 
     public int Creator { get; set; } = Constants.Creator.Id;
 

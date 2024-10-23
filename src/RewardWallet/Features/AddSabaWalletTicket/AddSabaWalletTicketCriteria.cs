@@ -2,7 +2,7 @@
 
 namespace RewardWallet.Features.AddSabaWalletTicket;
 
-public record class ListCustItem(
+public record ListCustItem(
     [property: JsonPropertyName("c")] int CustId,
     [property: JsonPropertyName("a")] decimal Amount);
 
