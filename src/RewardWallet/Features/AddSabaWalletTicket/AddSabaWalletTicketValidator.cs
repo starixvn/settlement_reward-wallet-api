@@ -52,6 +52,11 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
                 context.MessageFormatter.AppendArgument("InvalidCustIds", string.Join(", ", invalidCustIds));
                 return isValid;
             })
+
+            .WithErrorCode(CustIdErrorCode)
+            .WithMessage(CustIdErrorMessage);
+
+        RuleFor(x => x.Customers)
             .Must(IsNotDupCustId)
             .WithErrorCode(CustIdErrorCode)
             .WithMessage(CustIdErrorMessage);
