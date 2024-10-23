@@ -21,6 +21,7 @@ public static class TestingExtensions
             (TestingHandler handler,
                     CancellationToken cancellation)
                     => handler.HandleAsync(cancellation));
+        _ = endpoints.MapPost("/testing-datetime", () => DateTimeOffset.Now.ToString());
 
         return endpoints;
     }
