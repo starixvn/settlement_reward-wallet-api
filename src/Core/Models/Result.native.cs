@@ -2,7 +2,7 @@
 
 namespace Core.Models;
 
-public record Result(string ErrorCode, string ErrorMessage)
+public record class Result(string ErrorCode, string ErrorMessage)
 {
     [JsonIgnore]
     public bool IsSuccess => string.IsNullOrEmpty(ErrorCode) || ErrorCode == "0";

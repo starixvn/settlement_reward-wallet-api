@@ -1,6 +1,6 @@
 ﻿namespace RewardWallet.Features.UpdateSabaWalletTicket;
 
-public record UpdateSabaWalletTicketCommand(
+public record class UpdateSabaWalletTicketCommand(
     int CustId,
     long TransId,
     short SiteDbGroupId,

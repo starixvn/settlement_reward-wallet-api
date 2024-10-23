@@ -11,7 +11,7 @@ public class FetchSabaWalletTicketsItemResponse
     public bool? IsComplaint { get; set; }
 }
 
-public record FetchSabaWalletTicketsResponse(IEnumerable<FetchSabaWalletTicketsItemResponse> Items) : IEnumerable<FetchSabaWalletTicketsItemResponse>
+public record class FetchSabaWalletTicketsResponse(IEnumerable<FetchSabaWalletTicketsItemResponse> Items) : IEnumerable<FetchSabaWalletTicketsItemResponse>
 {
     public IEnumerator<FetchSabaWalletTicketsItemResponse> GetEnumerator()
         => Items.GetEnumerator();

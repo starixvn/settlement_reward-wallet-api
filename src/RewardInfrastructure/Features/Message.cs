@@ -24,4 +24,4 @@ public class MessageItem
     public string BetTransId { get; set; } = "Null";
 }
 
-public record Customer(int Id, string Name);
+public record class Customer(int Id, string Name);
