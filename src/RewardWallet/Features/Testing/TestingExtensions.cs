@@ -17,7 +17,7 @@ public static class TestingExtensions
     public static IEndpointRouteBuilder MapTesting(this IEndpointRouteBuilder endpoints)
     {
         _ = endpoints.MapPost(
-            "/testing",
+            "/testing-cache",
             (TestingHandler handler,
                     CancellationToken cancellation)
                     => handler.HandleAsync(cancellation));
