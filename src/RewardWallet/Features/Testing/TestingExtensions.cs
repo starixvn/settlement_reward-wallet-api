@@ -18,8 +18,9 @@ public static class TestingExtensions
     {
         _ = endpoints.MapPost(
             "/testing",
-            (TestingHandler handler)
-                    => handler.HandleAsync());
+            (TestingHandler handler,
+                    CancellationToken cancellation)
+                    => handler.HandleAsync(cancellation));
 
         return endpoints;
     }
