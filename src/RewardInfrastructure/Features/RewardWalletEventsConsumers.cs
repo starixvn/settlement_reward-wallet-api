@@ -30,7 +30,7 @@ public class RewardWalletEventsConsumers(
 
     private async Task HandleCreateMsg(SabaWalletTicketItem item, string level)
     {
-        var messageId = await addMsgHandler.HandleAsync(item, Levels.Agent);
+        var messageId = await addMsgHandler.HandleAsync(item, level);
         await addTargetMsgHandler.HandleAsync(item, messageId, level);
     }
 }
