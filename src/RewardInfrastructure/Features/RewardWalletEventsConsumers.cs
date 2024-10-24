@@ -19,7 +19,7 @@ public class RewardWalletEventsConsumers(
             var tickets = await sabaWalletTicketService.GetFeedback(context.Message.CustId, context.Message.TransId);
 
             await HandleCreateMsg(tickets[0], Levels.Agent);
-            await HandleCreateMsg(tickets[0], Levels.Master);
+            await HandleCreateMsg(tickets[0], Levels.Super);
         }
     }
 
