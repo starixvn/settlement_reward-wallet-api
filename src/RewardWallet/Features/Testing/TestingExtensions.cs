@@ -6,7 +6,7 @@ namespace RewardWallet.Features.Testing;
 
 public static class TestingExtensions
 {
-    public static IServiceCollection AddFetchPendingBalance(this IServiceCollection services)
+    public static IServiceCollection AddTesting(this IServiceCollection services)
     {
         services
             .AddScoped<TestingHandler>();
@@ -14,7 +14,7 @@ public static class TestingExtensions
         return services;
     }
 
-    public static IEndpointRouteBuilder MapFetchBalance(this IEndpointRouteBuilder endpoints)
+    public static IEndpointRouteBuilder MapTesting(this IEndpointRouteBuilder endpoints)
     {
         _ = endpoints.MapPost(
             "/testing",

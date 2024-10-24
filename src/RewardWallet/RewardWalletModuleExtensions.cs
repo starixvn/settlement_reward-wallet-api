@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Routing;
 using RewardWallet.Features.AddSabaWalletTicket;
 using RewardWallet.Features.CheckCustomer;
 using RewardWallet.Features.FetchFeedbackTickets;
+using RewardWallet.Features.FetchPendingBalance;
 using RewardWallet.Features.FetchSabaWalletTickets;
 using RewardWallet.Features.Testing;
 using RewardWallet.Features.UpdateSabaWalletTicket;
@@ -22,6 +23,7 @@ public static class RewardWalletModuleExtensions
             .AddCheckCustomer()
             .AddUpdateSabaWalletTicket()
             .AddFetchFeedbackTickets()
+            .AddTesting()
             .AddMapster();
 
         return builder;
@@ -38,7 +40,8 @@ public static class RewardWalletModuleExtensions
             .MapFetchBalance()
             .MapFetchSabaWalletTickets()
             .MapAddSabaWalletTicket()
-            .MapUpdateSabaWalletTicket();
+            .MapUpdateSabaWalletTicket()
+            .MapTesting();
 
         return endpoints;
     }
