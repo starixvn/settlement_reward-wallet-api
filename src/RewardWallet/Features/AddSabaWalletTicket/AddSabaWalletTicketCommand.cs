@@ -3,6 +3,7 @@
 public record class AddSabaWalletTicketCommand(
     short ProgramId,
     short SiteDbGroupId,
+    bool IsTest,
     List<Customer> Customers
     );
 

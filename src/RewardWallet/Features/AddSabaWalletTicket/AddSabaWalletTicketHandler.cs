@@ -1,13 +1,16 @@
 ﻿using Core.Models;
+using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 namespace RewardWallet.Features.AddSabaWalletTicket;
 
-public class AddSabaWalletTicketHandler(IDynamicRepository repository)
+public class AddSabaWalletTicketHandler(IDynamicRepository repository,IOptions<AppSettings> options)
 {
     public async Task<Result> HandleAsync(AddSabaWalletTicketCommand command, CancellationToken cancellationToken)
     {
         var addSabaProgramStatusCriteria = command.Adapt<AddSabaProgramStatusCriteria>();
+        addSabaProgramStatusCriteria.IsTest = options.Value.EnvironmentName == "UAT" || command.IsTest;
+
         await repository.ExecuteAsync(addSabaProgramStatusCriteria, cancellationToken: cancellationToken);
 
         var addSabaWalletTicketCriteria = new AddSabaWalletTicketCriteria
