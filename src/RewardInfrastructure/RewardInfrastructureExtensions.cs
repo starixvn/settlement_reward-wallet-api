@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using RewardInfrastructure.Features;
 using RewardInfrastructure.Features.AddMsg;
@@ -17,11 +16,6 @@ public static class RewardInfrastructureExtensions
             .AddScoped<AddMsgHandler>();
 
         return builder;
-    }
-
-    public static IEndpointRouteBuilder MapRewardInfrastructureModule(this IEndpointRouteBuilder endpoints)
-    {
-        return endpoints;
     }
 
     public static void AddRewardInfrastructureConsumers(this IRegistrationConfigurator configurator)

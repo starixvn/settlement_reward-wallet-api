@@ -10,7 +10,7 @@ public class RewardWalletEventsConsumers(
     ISabaWalletTicketService sabaWalletTicketService,
     AddMsgHandler addMsgHandler,
     AddTargetMsgHandler addTargetMsgHandler)
-    : IConsumer<RewardWalletAdded>, IConsumer<RewardWalletUpdated>
+    : IConsumer<RewardWalletUpdated>
 {
     public async Task Consume(ConsumeContext<RewardWalletUpdated> context)
     {
@@ -21,11 +21,6 @@ public class RewardWalletEventsConsumers(
             await HandleCreateMsg(tickets[0], Levels.Agent);
             await HandleCreateMsg(tickets[0], Levels.Super);
         }
-    }
-
-    public Task Consume(ConsumeContext<RewardWalletAdded> context)
-    {
-        return Task.CompletedTask;
     }
 
     private async Task HandleCreateMsg(SabaWalletTicketItem item, string level)

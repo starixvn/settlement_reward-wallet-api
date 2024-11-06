@@ -1,6 +1,5 @@
 ﻿namespace RewardWallet.Contracts;
 
-public record class RewardWalletAdded;
 
 public record class RewardWalletUpdated(
     int CustId,

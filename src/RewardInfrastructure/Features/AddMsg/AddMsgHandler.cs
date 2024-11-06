@@ -39,7 +39,6 @@ public class AddMsgHandler(IDynamicRepository repository)
         ContentLanguage.English => MsgTemplateContent.MemberEng,
         ContentLanguage.Cantonese => MsgTemplateContent.MemberCantonese,
         ContentLanguage.Mandarin => MsgTemplateContent.MemberMandarin,
-        //(_, ContentLanguage.Indo) => MsgContent.MemberIndo,
         _ => string.Empty
     };
 
@@ -48,7 +47,6 @@ public class AddMsgHandler(IDynamicRepository repository)
         ContentLanguage.English => MsgTemplateContent.SMAEng,
         ContentLanguage.Cantonese => MsgTemplateContent.SMACantonese,
         ContentLanguage.Mandarin => MsgTemplateContent.SMAMandarin,
-        //(_, ContentLanguage.Indo) => MsgContent.SMAIndo,
         _ => string.Empty
     };
 }
