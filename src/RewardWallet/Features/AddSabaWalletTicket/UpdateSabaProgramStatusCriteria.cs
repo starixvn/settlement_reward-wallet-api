@@ -3,7 +3,7 @@
 public class UpdateSabaProgramStatusCriteria : INonQueryCommand
 {
     public int SId { get; set; }
-    public byte StatusId { get; set; } = 2; // completed
+    public byte StatusId { get; set; } = 2;
 
     public string GetSettingKey() => "NAP_SabaProgramStatus_Upd";
 

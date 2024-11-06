@@ -14,9 +14,6 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
     private const string CustIdErrorCode = "2";
     private const string CustIdErrorMessage = "Invalid Credit CustID or Amount";
 
-    //private const string NotExistsCustIdErrorCode = "3";
-    //private const string NotExistsCustIdErrorMessage = "Invalid Credit Cust ID: {InvalidCustIds}";
-
     public AddSabaWalletTicketValidator(IRemotingRefService remotingRefService, CheckCustomerHandler checkCustomerHandler)
     {
         this.remotingRefService = remotingRefService;
@@ -73,7 +70,7 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
         return !string.IsNullOrEmpty(program);
     }
 
-    private bool IsNotDupCustId(List<Customer> customers)
+    private static bool IsNotDupCustId(List<Customer> customers)
     {
         return customers.DistinctBy(x => x.CustId).Count() == customers.Count;
     }

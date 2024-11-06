@@ -12,7 +12,7 @@ public class AddMsgHandler(IDynamicRepository repository)
         {
             ContentEng = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.English, level),
             ContentCh = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.Cantonese, level),
-            ContentCs = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.Mandarin, level),
+            ContentCs = CreateMessageContent(sabaWalletTicketItem, ContentLanguage.Mandarin, level)
         };
 
         return await repository.GetAsync<int>(criteria);
@@ -27,14 +27,14 @@ public class AddMsgHandler(IDynamicRepository repository)
             .Replace("@amount", $"{sabaWalletTicketItem.Amount}");
     }
 
-    private static string GetTemplate(string level, string languageCode) => (level) switch
+    private static string GetTemplate(string level, string languageCode) => level switch
     {
-        (Levels.Agent) => GetTemplateForAgent(languageCode),
-        (Levels.Super) => GetTemplateForSuperMaster(languageCode),
+        Levels.Agent => GetTemplateForAgent(languageCode),
+        Levels.Super => GetTemplateForSuperMaster(languageCode),
         _ => string.Empty
     };
 
-    private static string GetTemplateForAgent(string languageCode) => (languageCode) switch
+    private static string GetTemplateForAgent(string languageCode) => languageCode switch
     {
         ContentLanguage.English => MsgTemplateContent.MemberEng,
         ContentLanguage.Cantonese => MsgTemplateContent.MemberCantonese,
@@ -43,7 +43,7 @@ public class AddMsgHandler(IDynamicRepository repository)
         _ => string.Empty
     };
 
-    private static string GetTemplateForSuperMaster(string languageCode) => (languageCode) switch
+    private static string GetTemplateForSuperMaster(string languageCode) => languageCode switch
     {
         ContentLanguage.English => MsgTemplateContent.SMAEng,
         ContentLanguage.Cantonese => MsgTemplateContent.SMACantonese,

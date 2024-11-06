@@ -6,27 +6,26 @@ using RewardInfrastructure.Features;
 using RewardInfrastructure.Features.AddMsg;
 using RewardInfrastructure.Features.AddTargetMsg;
 
-namespace RewardInfrastructure
+namespace RewardInfrastructure;
+
+public static class RewardInfrastructureExtensions
 {
-    public static class RewardInfrastructureExtensions
+    public static WebApplicationBuilder AddRewardInfrastructureModule(this WebApplicationBuilder builder)
     {
-        public static WebApplicationBuilder AddRewardInfrastructureModule(this WebApplicationBuilder builder)
-        {
-            builder.Services
-                .AddScoped<AddTargetMsgHandler>()
-                .AddScoped<AddMsgHandler>();
+        builder.Services
+            .AddScoped<AddTargetMsgHandler>()
+            .AddScoped<AddMsgHandler>();
 
-            return builder;
-        }
+        return builder;
+    }
 
-        public static IEndpointRouteBuilder MapRewardInfrastructureModule(this IEndpointRouteBuilder endpoints)
-        {
-            return endpoints;
-        }
+    public static IEndpointRouteBuilder MapRewardInfrastructureModule(this IEndpointRouteBuilder endpoints)
+    {
+        return endpoints;
+    }
 
-        public static void AddRewardInfrastructureConsumers(this IRegistrationConfigurator configurator)
-        {
-            configurator.AddConsumer<RewardWalletEventsConsumers>();
-        }
+    public static void AddRewardInfrastructureConsumers(this IRegistrationConfigurator configurator)
+    {
+        configurator.AddConsumer<RewardWalletEventsConsumers>();
     }
 }
