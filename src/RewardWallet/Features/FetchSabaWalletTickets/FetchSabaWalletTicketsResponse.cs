@@ -4,7 +4,7 @@ namespace RewardWallet.Features.FetchSabaWalletTickets;
 
 public class FetchSabaWalletTicketsItemResponse
 {
-    public long TransId { get; set; }
+    public string TransId { get; set; }
     public decimal Amount { get; set; }
     public short ProgramId { get; set; }
     public DateTime APaymentDate { get; set; }
