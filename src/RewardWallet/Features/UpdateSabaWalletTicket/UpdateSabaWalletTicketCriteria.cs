@@ -6,7 +6,7 @@ public class UpdateSabaWalletTicketCriteria : CriteriaBase
     public long TransId { get; set; }
     public bool? IsComplaint { get; set; }
 
-    public override string GetSettingKey() => "NAP_SabaWalletTicket_Complaint_Udp";
+    public override string GetSettingKey() => "NAP_SabaWalletTicket_Complaint_Upd";
 
     public override bool IsValid() => CustId > 0;
 }

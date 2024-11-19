@@ -19,9 +19,10 @@ public static class FetchSabaWalletTicketsExtensions
         _ = endpoints.MapPost(
             "/get-saba-wallet-tickets",
             (FetchSabaWalletTicketsQuery query,
-                FetchSabaWalletTicketsHandler handler,
-                CancellationToken cancellation)
-                    => handler.HandleAsync(query, cancellation));
+                    FetchSabaWalletTicketsHandler handler,
+                    CancellationToken cancellation)
+                => handler.HandleAsync(query, cancellation));
+        //.AddEndpointFilter<LogRequestFilter>();
 
         return endpoints;
     }
