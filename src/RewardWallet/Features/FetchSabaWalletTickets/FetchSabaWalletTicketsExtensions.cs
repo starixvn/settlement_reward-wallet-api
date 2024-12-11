@@ -22,7 +22,6 @@ public static class FetchSabaWalletTicketsExtensions
                     FetchSabaWalletTicketsHandler handler,
                     CancellationToken cancellation)
                 => handler.HandleAsync(query, cancellation));
-        //.AddEndpointFilter<LogRequestFilter>();
 
         return endpoints;
     }

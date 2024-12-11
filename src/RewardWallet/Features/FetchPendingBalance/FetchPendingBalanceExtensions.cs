@@ -1,6 +1,4 @@
-﻿using Core.EndpointFilters;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,10 +19,9 @@ public static class FetchPendingBalanceExtensions
         _ = endpoints.MapPost(
             "/get-pending-balance",
             (FetchPendingBalanceQuery query,
-                FetchPendingBalanceHandler handler,
-                CancellationToken cancellation)
-                    => handler.HandleAsync(query, cancellation))
-            .AddEndpointFilter<LogRequestFilter>();
+                    FetchPendingBalanceHandler handler,
+                    CancellationToken cancellation)
+                => handler.HandleAsync(query, cancellation));
 
         return endpoints;
     }
