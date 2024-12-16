@@ -20,7 +20,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger logger)
 
     private async Task HandleException(HttpContext context, Exception exception)
     {
-        var logMessage = new LogMessage($"Error from internal Api: {exception.Message}")
+        var logMessage = new LogMessage($"Error from Reward-Wallet-Api: {exception.Message}")
             .AddSection("Database Info", DatabaseInfoGetters.GetDbExceptionInfo(exception))
             .AddSection("Server Info", CommonInfoGetters.GetServerInfo())
             .AddSection("Exception Info", CommonInfoGetters.GetExceptionInfo(exception))

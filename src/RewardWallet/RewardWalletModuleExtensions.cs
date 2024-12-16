@@ -9,6 +9,7 @@ using RewardWallet.Features.FetchPendingBalance;
 using RewardWallet.Features.FetchSabaWalletTickets;
 using RewardWallet.Features.Testing;
 using RewardWallet.Features.UpdateSabaWalletTicket;
+using System.Globalization;
 
 namespace RewardWallet;
 
@@ -32,7 +33,7 @@ public static class RewardWalletModuleExtensions
     public static IEndpointRouteBuilder MapRewardWalletModule(this IEndpointRouteBuilder endpoints)
     {
         _ = endpoints
-            .MapGroup($"api/{Constants.ModuleName.ToLower()}")
+            .MapGroup($"api/{Constants.ModuleName.ToLower(CultureInfo.InvariantCulture)}")
             .WithTags($"{Constants.ModuleName}")
             .AddCustomFluentValidationFilter()
 

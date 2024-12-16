@@ -13,11 +13,7 @@ using Fanex.NAP.Client.Services;
 using Fanex.NAP.Client.Session;
 using Fanex.RemotingRef;
 using Fanex.Settlement.Converter.Services;
-using ONEbook.UM;
-using ONEbook.UM.AspNetCore;
-using ONEbook.UM.Configurations;
-using ONEbook.UM.Transport;
-using SharpRaven;
+using ONEbook.UM.DependencyInjection;
 using StackExchange.Redis;
 using ILogger = Fanex.Logging.ILogger;
 
@@ -27,18 +23,21 @@ public static class InitializeConfig
 {
     public static IServiceCollection AddInitialServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddOneBookUm(configuration);
+        services.AddFanexLogSentry(configuration);
         services.AddFanexSql(configuration);
         services.AddConfigRedisCache(configuration);
         services.AddControllers();
-
         services.AddCoreServices(configuration);
+
         RefDataTypeContainer
             .ConnectTo(new Uri(configuration.GetSection("Fanex.RemotingRef.Service.Url").Value)).FromApplication("Settlement");
-
         services.AddSingleton<IRemotingRefService, RemotingRefService>();
 
-        StartUmSetting(configuration);
-        StartLogSetting(configuration);
+        ExceptionHandler
+            .UseConfig(new LoggingConfiguration())
+            .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+
         return services;
     }
 
@@ -69,33 +68,7 @@ public static class InitializeConfig
             ConnectionString = redisConfig,
             ApplicationName = applicationName,
         }));
+
         service.AddSingleton<ICacheService>(new CacheService());
-    }
-
-    private static void StartUmSetting(IConfiguration configuration)
-    {
-        var umConfig = new UMClientConfiguration().Initialize(configuration);
-
-        UMClientManager
-            .UseConfig(umConfig)
-            .UseCacheService(new UMCacheService(new CacheService()))
-            .UseRestClient(new UMRestClient(umConfig));
-    }
-
-    private static void StartLogSetting(IConfiguration configuration)
-    {
-        var logEngine = new List<ILogEngine>();
-
-        var sentryEngineOptions = new SentryEngineOptions
-        {
-            Dsn = new Dsn(configuration.GetSection("SentryToken").Value)
-        };
-        logEngine.Add(new SentryLogging(sentryEngineOptions));
-
-        LogManager.SetDefaultLogCategory(configuration.GetSection("SiteCategory").Value).Use(logEngine);
-
-        ExceptionHandler
-            .UseConfig(new LoggingConfiguration())
-            .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
     }
 }

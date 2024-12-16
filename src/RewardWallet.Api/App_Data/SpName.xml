@@ -2,21 +2,17 @@
 <Functions SiteName="RewardWallet">
 	<Function Name="RewardWallet">
 		<Setting Key="NAP_SabaWalletTicket_Validation" SpName="NAP_SabaWalletTicket_Validation" DbName="DBACC.bodb02.wsv_nap" />
-		<Setting Key="NAP_SabaProgram_PendingBalance_Sel" SpName="NAP_SabaProgram_PendingBalance_Sel" DbName="DBACC.bodb02.wsv_nap" />
-		<Setting Key="NAP_SabaWalletTicket_Sel" SpName="NAP_SabaWalletTicket_Sel" DbName="DBSIC.bodb02.wsv_nap" />
+		<Setting Key="NAP_SabaProgram_PendingBalance_Sel" SpName="NAP_SabaProgram_PendingBalance_Sel" DbName="DBACC.bodb02.wsv_nap" TimeOut="30" />
+		<Setting Key="NAP_SabaWalletTicket_Sel" SpName="NAP_SabaWalletTicket_Sel" DbName="DBSIC.bodb02.wsv_nap" TimeOut="30" />
 		<Setting Key="NAP_SabaWalletTicket_Complaint_Upd" SpName="NAP_SabaWalletTicket_Complaint_Upd" DbName="DBSIC.bodb02.wsv_nap" />
 		<Setting Key="NAP_SabaProgramStatus_Ins" SpName="NAP_SabaProgramStatus_Ins" DbName="DBSIC.bodb02.wsv_nap" />
 		<Setting Key="NAP_SabaWalletTicket_Ins" SpName="NAP_SabaWalletTicket_Ins" DbName="DBSIC.bodb02.wsv_nap" />
 		<Setting Key="NAP_SabaProgramStatus_Upd" SpName="NAP_SabaProgramStatus_Upd" DbName="DBSIC.bodb02.wsv_nap" />
 		<Setting Key="NAP_SabaWalletTicket_FeedbackSMA_Sel" SpName="NAP_SabaWalletTicket_FeedbackSMA_Sel" DbName="DBSIC.bodb02.wsv_nap" />
 		<Setting Key="WriteLog_UserLog_RunSP" SpName="WriteLog_UserLog_RunSP" DbName="DBLOG.bodb_CustomerLog.wsv_nap" />
-
 	</Function>
-
-
 	<Function Name="Msg">
 		<Setting Key="NAP_SpecialDelete_Message_Insert" SpName="NAP_SpecialDelete_Message_Insert" DbName="DBMSG.bodb_Message.wsv_nap" />
 		<Setting Key="NAP_SpecialDelete_BatchMessage_Upload" SpName="NAP_SpecialDelete_BatchMessage_Upload" DbName="DBMSG.bodb_Message.wsv_nap" />
 	</Function>
-
 </Functions>

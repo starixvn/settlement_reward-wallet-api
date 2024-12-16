@@ -5,13 +5,13 @@ namespace RewardInfrastructure.Features.AddTargetMsg;
 
 internal class AddTargetMsgCriteria : NonQueryCommand
 {
-    public string XMLMessage { get; set; } = string.Empty;
+    public string XMLMessage { get; set; }
 
     public int CreatorId { get; set; } = Creator.Id;
 
     public int ErrorCode { get; set; }
 
-    public string ErrorMsg { get; set; } = string.Empty;
+    public string ErrorMsg { get; set; }
 
     public override string GetSettingKey() => "NAP_SpecialDelete_BatchMessage_Upload";
 
