@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Core.EndpointFilters;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,8 +22,8 @@ public static class TestingExtensions
             "/testing-cache",
             (TestingHandler handler,
                     CancellationToken cancellation)
-                    => handler.HandleAsync(cancellation));
-        _ = endpoints.MapPost("/testing-datetime", () => new TestingResponse { Value = DateTimeOffset.Now.ToString() });
+                    => handler.HandleAsync(cancellation))
+            .AddEndpointFilter<LogRequestFilter>();
 
         return endpoints;
     }

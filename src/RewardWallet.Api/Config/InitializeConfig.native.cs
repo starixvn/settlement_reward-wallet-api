@@ -3,9 +3,6 @@ using Fanex.Caching.Redis;
 using Fanex.Data.Repository;
 using Fanex.Data.SqlServer;
 using Fanex.Logging;
-using Fanex.Logging.Extensions;
-using Fanex.Logging.Extensions.AspNetCore;
-using Fanex.Logging.Extensions.Database;
 using Fanex.Logging.Sentry.RavenClient;
 using Fanex.NAP.Client.Configuration;
 using Fanex.NAP.Client.Helpers.Web;
@@ -34,10 +31,6 @@ public static class InitializeConfig
             .ConnectTo(new Uri(configuration.GetSection("Fanex.RemotingRef.Service.Url").Value)).FromApplication("Settlement");
         services.AddSingleton<IRemotingRefService, RemotingRefService>();
 
-        ExceptionHandler
-            .UseConfig(new LoggingConfiguration())
-            .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
-
         return services;
     }
 
@@ -52,7 +45,6 @@ public static class InitializeConfig
         services.AddTransient<ILogger, Logger>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddTransient<IDynamicRepository, DynamicRepository>();
-
         services.AddTransient<XmlConvertService, XmlConvertServiceImp>();
 
         services.Configure<IConfiguration>(configuration);
