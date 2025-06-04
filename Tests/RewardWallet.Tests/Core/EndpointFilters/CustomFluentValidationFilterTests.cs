@@ -2,21 +2,21 @@ using Core.EndpointFilters;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
-using Moq;
+using NSubstitute;
 
 namespace RewardWallet.Tests.Core.EndpointFilters;
 
 public class CustomFluentValidationFilterTests
 {
-    private readonly Mock<IServiceProvider> _serviceProviderMock;
-    private readonly Mock<EndpointFilterDelegate> _nextMock;
-    private readonly CustomFluentValidationFilter _filter;
+    private readonly IServiceProvider serviceProviderSub;
+    private readonly EndpointFilterDelegate nextSub;
+    private readonly CustomFluentValidationFilter filter;
 
     public CustomFluentValidationFilterTests()
     {
-        _serviceProviderMock = new Mock<IServiceProvider>();
-        _nextMock = new Mock<EndpointFilterDelegate>();
-        _filter = new CustomFluentValidationFilter(_serviceProviderMock.Object);
+        serviceProviderSub = Substitute.For<IServiceProvider>();
+        nextSub = Substitute.For<EndpointFilterDelegate>();
+        filter = new CustomFluentValidationFilter(serviceProviderSub);
     }
 
     [Fact]
@@ -26,12 +26,13 @@ public class CustomFluentValidationFilterTests
         var context = CreateEndpointFilterContext(null);
 
         // Act
-        var result = await _filter.InvokeAsync(context, _nextMock.Object);
+        var result = await filter.InvokeAsync(context, nextSub);
 
         // Assert
         Assert.NotNull(result);
-        var badRequestResult = Assert.IsType<object>(result);
-        Assert.Equal("Invalid model object", badRequestResult.ToString());
+        Assert.StartsWith("BadRequest", result.GetType().Name);
+        var valueProp = result.GetType().GetProperty("Value")?.GetValue(result, null);
+        Assert.Equal("Invalid model object", valueProp);
     }
 
     [Fact]
@@ -40,14 +41,13 @@ public class CustomFluentValidationFilterTests
         // Arrange
         var model = new TestModel();
         var context = CreateEndpointFilterContext(model);
-        _serviceProviderMock.Setup(x => x.GetService(It.IsAny<Type>()))
-            .Returns(null);
+        serviceProviderSub.GetService(Arg.Any<Type>()).Returns((object)null);
 
         // Act
-        await _filter.InvokeAsync(context, _nextMock.Object);
+        await filter.InvokeAsync(context, nextSub);
 
         // Assert
-        _nextMock.Verify(x => x(context), Times.Once);
+        await nextSub.Received(1).Invoke(context);
     }
 
     [Fact]
@@ -56,18 +56,17 @@ public class CustomFluentValidationFilterTests
         // Arrange
         var model = new TestModel();
         var context = CreateEndpointFilterContext(model);
-        var validator = new Mock<IValidator>();
-        validator.Setup(x => x.ValidateAsync(It.IsAny<IValidationContext>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ValidationResult());
+        var validator = Substitute.For<IValidator>();
+        validator.ValidateAsync(Arg.Any<IValidationContext>(), Arg.Any<CancellationToken>())
+            .Returns(new ValidationResult());
 
-        _serviceProviderMock.Setup(x => x.GetService(It.IsAny<Type>()))
-            .Returns(validator.Object);
+        serviceProviderSub.GetService(Arg.Any<Type>()).Returns(validator);
 
         // Act
-        await _filter.InvokeAsync(context, _nextMock.Object);
+        await filter.InvokeAsync(context, nextSub);
 
         // Assert
-        _nextMock.Verify(x => x(context), Times.Once);
+        await nextSub.Received(1).Invoke(context);
     }
 
     [Fact]
@@ -76,31 +75,30 @@ public class CustomFluentValidationFilterTests
         // Arrange
         var model = new TestModel();
         var context = CreateEndpointFilterContext(model);
-        var validator = new Mock<IValidator>();
-        validator.Setup(x => x.ValidateAsync(It.IsAny<IValidationContext>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ValidationResult(new[] { new ValidationFailure("Property", "Error message", "1") }));
+        var validator = Substitute.For<IValidator>();
+        validator.ValidateAsync(Arg.Any<IValidationContext>(), Arg.Any<CancellationToken>())
+            .Returns(new ValidationResult(new[] { new ValidationFailure("Property", "Error message", "1") }));
 
-        _serviceProviderMock.Setup(x => x.GetService(It.IsAny<Type>()))
-            .Returns(validator.Object);
+        serviceProviderSub.GetService(Arg.Any<Type>()).Returns(validator);
 
         // Act
-        var result = await _filter.InvokeAsync(context, _nextMock.Object);
+        var result = await filter.InvokeAsync(context, nextSub);
 
         // Assert
         Assert.NotNull(result);
-        var error = result.ToString();
-        Assert.Contains("Error message", error);
+        Assert.StartsWith("BadRequest", result.GetType().Name);
+        var valueProp = result.GetType().GetProperty("Value")?.GetValue(result, null);
+        Assert.Contains("Error message", valueProp?.ToString());
     }
 
     private static EndpointFilterInvocationContext CreateEndpointFilterContext(object argument)
     {
-        var context = new Mock<EndpointFilterInvocationContext>();
-        context.Setup(x => x.Arguments).Returns(new[] { argument });
-        return context.Object;
+        var context = Substitute.For<EndpointFilterInvocationContext>();
+        context.Arguments.Returns(new[] { argument });
+        return context;
     }
 
     private class TestModel
     {
-        public string Property { get; set; }
     }
 }

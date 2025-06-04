@@ -1,5 +1,4 @@
 using RewardWallet.Contracts;
-using Xunit;
 
 namespace RewardWallet.Tests.Contracts;
 
@@ -55,4 +54,4 @@ public class SabaWalletTicketItemTests
         Assert.Equal(string.Empty, item.SuperUsername);
         Assert.Null(item.IsComplaint);
     }
-} 
+}

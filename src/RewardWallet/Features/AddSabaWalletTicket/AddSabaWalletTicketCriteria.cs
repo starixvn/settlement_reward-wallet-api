@@ -9,9 +9,13 @@ public record class ListCustItem(
 public class AddSabaWalletTicketCriteria : INonQueryCommand
 {
     public int SId { get; set; }
+
     public short ProgramId { get; set; }
+
     public byte WalletId { get; set; } = 2;
+
     public int Creator { get; set; }
+
     public string ListCust { get; set; }
 
     public string GetSettingKey() => "NAP_SabaWalletTicket_Ins";

@@ -1,32 +1,33 @@
+using Fanex.Data.Repository;
 using Fanex.RemotingRef;
-using Moq;
+using NSubstitute;
 using RewardWallet.Features.AddSabaWalletTicket;
 using RewardWallet.Features.CheckCustomer;
-using Xunit;
 
 namespace RewardWallet.Tests.Features.AddSabaWalletTicket;
 
 public class AddSabaWalletTicketValidatorTests
 {
-    private readonly Mock<IRemotingRefService> _remotingRefServiceMock;
-    private readonly Mock<CheckCustomerHandler> _checkCustomerHandlerMock;
-    private readonly AddSabaWalletTicketValidator _validator;
+    private readonly IRemotingRefService remotingRefServiceSub;
+    private readonly AddSabaWalletTicketValidator validator;
 
     public AddSabaWalletTicketValidatorTests()
     {
-        _remotingRefServiceMock = new Mock<IRemotingRefService>();
-        _checkCustomerHandlerMock = new Mock<CheckCustomerHandler>();
-        _validator = new AddSabaWalletTicketValidator(_remotingRefServiceMock.Object, _checkCustomerHandlerMock.Object);
+        remotingRefServiceSub = Substitute.For<IRemotingRefService>();
+        var repository1 = Substitute.For<IDynamicRepository>();
+        repository1.Fetch<string>(Arg.Any<CheckCustomerCriteria>()).Returns(new List<string>());
+        var checkCustomerHandlerSub1 = Substitute.For<CheckCustomerHandler>(repository1);
+        validator = new AddSabaWalletTicketValidator(remotingRefServiceSub, checkCustomerHandlerSub1);
     }
 
     [Fact]
     public void Validate_WhenProgramIdIsZero_ReturnsError()
     {
         // Arrange
-        var command = new AddSabaWalletTicketCommand(0, 1, false, new List<Customer>());
+        var command = new AddSabaWalletTicketCommand(0, 1, false, []);
 
         // Act
-        var result = _validator.Validate(command);
+        var result = validator.Validate(command);
 
         // Assert
         Assert.False(result.IsValid);
@@ -37,10 +38,10 @@ public class AddSabaWalletTicketValidatorTests
     public void Validate_WhenProgramIdIsNegative_ReturnsError()
     {
         // Arrange
-        var command = new AddSabaWalletTicketCommand(-1, 1, false, new List<Customer>());
+        var command = new AddSabaWalletTicketCommand(-1, 1, false, []);
 
         // Act
-        var result = _validator.Validate(command);
+        var result = validator.Validate(command);
 
         // Assert
         Assert.False(result.IsValid);
@@ -51,10 +52,10 @@ public class AddSabaWalletTicketValidatorTests
     public void Validate_WhenCustomersListIsEmpty_ReturnsError()
     {
         // Arrange
-        var command = new AddSabaWalletTicketCommand(1, 1, false, new List<Customer>());
+        var command = new AddSabaWalletTicketCommand(1, 1, false, []);
 
         // Act
-        var result = _validator.Validate(command);
+        var result = validator.Validate(command);
 
         // Assert
         Assert.False(result.IsValid);
@@ -69,7 +70,7 @@ public class AddSabaWalletTicketValidatorTests
         var command = new AddSabaWalletTicketCommand(1, 1, false, customers);
 
         // Act
-        var result = _validator.Validate(command);
+        var result = validator.Validate(command);
 
         // Assert
         Assert.False(result.IsValid);
@@ -84,7 +85,7 @@ public class AddSabaWalletTicketValidatorTests
         var command = new AddSabaWalletTicketCommand(1, 1, false, customers);
 
         // Act
-        var result = _validator.Validate(command);
+        var result = validator.Validate(command);
 
         // Assert
         Assert.False(result.IsValid);
@@ -97,12 +98,14 @@ public class AddSabaWalletTicketValidatorTests
         // Arrange
         var customers = new List<Customer> { new(1, 100) };
         var command = new AddSabaWalletTicketCommand(1, 1, false, customers);
+        remotingRefServiceSub.GetResourceDataByRefIdAndResourceId(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>())
+            .Returns("any");
 
         // Act
-        var result = _validator.Validate(command);
+        var result = validator.Validate(command);
 
         // Assert
         Assert.True(result.IsValid);
         Assert.Empty(result.Errors);
     }
-} 
+}

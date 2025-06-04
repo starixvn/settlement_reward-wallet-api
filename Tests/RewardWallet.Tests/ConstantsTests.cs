@@ -1,6 +1,3 @@
-using RewardWallet;
-using Xunit;
-
 namespace RewardWallet.Tests;
 
 public class ConstantsTests
@@ -13,4 +10,4 @@ public class ConstantsTests
         Assert.Equal("RewardProgram", Constants.RefIdProgram);
         Assert.Equal("en", Constants.DefaultLanguage);
     }
-} 
+}

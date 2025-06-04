@@ -1,5 +1,4 @@
 using RewardInfrastructure.Constants;
-using Xunit;
 
 namespace RewardWallet.Tests.Infrastructure.Constants;
 
@@ -14,4 +13,4 @@ public class LevelsTests
         Assert.Equal("Master", Levels.Master);
         Assert.Equal("Super", Levels.Super);
     }
-} 
+}

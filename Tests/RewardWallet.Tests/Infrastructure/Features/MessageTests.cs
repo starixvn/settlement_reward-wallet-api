@@ -1,6 +1,5 @@
-using System.Xml.Serialization;
 using RewardInfrastructure.Features;
-using Xunit;
+using System.Xml.Serialization;
 
 namespace RewardWallet.Tests.Infrastructure.Features;
 
@@ -10,11 +9,13 @@ public class MessageTests
     public void Message_WhenDeserialized_ContainsCorrectData()
     {
         // Arrange
-        var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<Messages>
-    <Item MessageId=""1"" TargetId=""100"" TargetName=""TestUser"" BetTransId=""123"" />
-    <Item MessageId=""2"" TargetId=""200"" TargetName=""TestUser2"" BetTransId=""456"" />
-</Messages>";
+        const string xml = """
+                           <?xml version="1.0" encoding="utf-8"?>
+                           <Messages>
+                               <Item MessageId="1" TargetId="100" TargetName="TestUser" BetTransId="123" />
+                               <Item MessageId="2" TargetId="200" TargetName="TestUser2" BetTransId="456" />
+                           </Messages>
+                           """;
 
         var serializer = new XmlSerializer(typeof(Message));
 
@@ -46,11 +47,11 @@ public class MessageTests
         // Arrange
         var message = new Message
         {
-            Items = new List<MessageItem>
-            {
-                new() { MessageId = 1, TargetId = 100, TargetName = "TestUser", BetTransId = "123" },
-                new() { MessageId = 2, TargetId = 200, TargetName = "TestUser2", BetTransId = "456" }
-            }
+            Items =
+            [
+                new MessageItem { MessageId = 1, TargetId = 100, TargetName = "TestUser", BetTransId = "123" },
+                new MessageItem { MessageId = 2, TargetId = 200, TargetName = "TestUser2", BetTransId = "456" }
+            ]
         };
 
         var serializer = new XmlSerializer(typeof(Message));
@@ -61,7 +62,7 @@ public class MessageTests
         var xml = writer.ToString();
 
         // Assert
-        Assert.Contains("<Messages>", xml);
+        Assert.True(xml.Contains("<Messages>") || xml.Contains("<Messages "), "XML should contain <Messages> root element");
         Assert.Contains("<Item MessageId=\"1\"", xml);
         Assert.Contains("TargetId=\"100\"", xml);
         Assert.Contains("TargetName=\"TestUser\"", xml);
@@ -71,4 +72,4 @@ public class MessageTests
         Assert.Contains("TargetName=\"TestUser2\"", xml);
         Assert.Contains("BetTransId=\"456\"", xml);
     }
-} 
+}

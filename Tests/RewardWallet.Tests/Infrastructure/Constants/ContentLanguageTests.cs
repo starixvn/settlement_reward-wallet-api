@@ -1,5 +1,4 @@
 using RewardInfrastructure.Constants;
-using Xunit;
 
 namespace RewardWallet.Tests.Infrastructure.Constants;
 
@@ -14,4 +13,4 @@ public class ContentLanguageTests
         Assert.Equal("zh-TW", ContentLanguage.Cantonese);
         Assert.Equal("zh-CN", ContentLanguage.Mandarin);
     }
-} 
+}

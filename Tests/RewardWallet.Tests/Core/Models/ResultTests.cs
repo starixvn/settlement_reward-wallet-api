@@ -1,5 +1,4 @@
 using Core.Models;
-using Xunit;
 
 namespace RewardWallet.Tests.Core.Models;
 
@@ -34,4 +33,4 @@ public class ResultTests
         // Act & Assert
         Assert.False(result.IsSuccess);
     }
-} 
+}

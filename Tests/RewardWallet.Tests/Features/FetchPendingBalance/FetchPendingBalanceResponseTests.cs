@@ -1,5 +1,4 @@
 using RewardWallet.Features.FetchPendingBalance;
-using Xunit;
 
 namespace RewardWallet.Tests.Features.FetchPendingBalance;
 
@@ -33,4 +32,27 @@ public class FetchPendingBalanceResponseTests
         Assert.Equal(string.Empty, response.CurrencyCode);
         Assert.Null(response.LatestTransDate);
     }
-} 
+
+    [Fact]
+    public void ProgramIds_ShouldBeEmptyArray_WhenProgramsIsNullOrEmpty()
+    {
+        var response1 = new FetchPendingBalanceResponse { Programs = null };
+        var response2 = new FetchPendingBalanceResponse { Programs = "" };
+        Assert.Empty(response1.ProgramIds);
+        Assert.Empty(response2.ProgramIds);
+    }
+
+    [Fact]
+    public void ProgramIds_ShouldReturnCorrectArray_WhenProgramsIsValidString()
+    {
+        var response = new FetchPendingBalanceResponse { Programs = "1,2,100,99" };
+        Assert.Equal(new[] { 1, 2, 100, 99 }, response.ProgramIds);
+    }
+
+    [Fact]
+    public void ProgramIds_ShouldIgnoreInvalidValues()
+    {
+        var response = new FetchPendingBalanceResponse { Programs = "1,abc,2,,99" };
+        Assert.Equal(new[] { 1, 2, 99 }, response.ProgramIds);
+    }
+}
