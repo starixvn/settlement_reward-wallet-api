@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace RewardInfrastructure.Features;
+namespace RewardInfrastructure.Models;
 
 [XmlRoot("Messages")]
 public class Message

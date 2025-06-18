@@ -1,15 +1,14 @@
 ﻿using MassTransit;
 using RewardInfrastructure.Constants;
-using RewardInfrastructure.Features.AddMsg;
-using RewardInfrastructure.Features.AddTargetMsg;
+using RewardInfrastructure.Services;
 using RewardWallet.Contracts;
 
 namespace RewardInfrastructure.Features;
 
 public class RewardWalletEventsConsumers(
     ISabaWalletTicketService sabaWalletTicketService,
-    AddMsgHandler addMsgHandler,
-    AddTargetMsgHandler addTargetMsgHandler)
+    InsertMessageService insertMessageService,
+    UploadBatchMessageService uploadBatchMessageServiceImp)
     : IConsumer<RewardWalletUpdated>
 {
     public async Task Consume(ConsumeContext<RewardWalletUpdated> context)
@@ -18,14 +17,14 @@ public class RewardWalletEventsConsumers(
         {
             var tickets = await sabaWalletTicketService.GetFeedback(context.Message.CustId, context.Message.TransId);
 
-            await HandleCreateMsg(tickets[0], Levels.Agent);
-            await HandleCreateMsg(tickets[0], Levels.Super);
+            await HandleCreateMessage(tickets[0], Levels.Agent);
+            await HandleCreateMessage(tickets[0], Levels.Super);
         }
     }
 
-    private async Task HandleCreateMsg(SabaWalletTicketItem item, string level)
+    private async Task HandleCreateMessage(SabaWalletTicketItem item, string level)
     {
-        var messageId = await addMsgHandler.HandleAsync(item, level);
-        await addTargetMsgHandler.HandleAsync(item, messageId, level);
+        var messageId = await insertMessageService.CreateMessageAsync(item, level);
+        await uploadBatchMessageServiceImp.HandleAsync(item, messageId, level);
     }
 }

@@ -1,17 +1,14 @@
 ﻿using Fanex.Data;
 using Fanex.Data.Repository;
 
-namespace RewardInfrastructure.Features.AddMsg;
+namespace RewardInfrastructure.Criteria;
 
-public class AddMsgCriteria : NonQueryCommand
+public class InsertMessageCriteria : NonQueryCommand
 {
     public int? MessageId { get; set; }
 
     [SpParam(SqlParamName = "Content_en")]
     public string ContentEng { get; set; }
-
-    [SpParam(SqlParamName = "Content_th")]
-    public string ContentTh { get; set; }
 
     [SpParam(SqlParamName = "Content_ch")]
     public string ContentCh { get; set; }
@@ -21,6 +18,9 @@ public class AddMsgCriteria : NonQueryCommand
 
     [SpParam(SqlParamName = "Content_id")]
     public string ContentId { get; set; }
+
+    [SpParam(SqlParamName = "Content_th")]
+    public string ContentThai { get; set; }
 
     public int? MatchId { get; set; }
 

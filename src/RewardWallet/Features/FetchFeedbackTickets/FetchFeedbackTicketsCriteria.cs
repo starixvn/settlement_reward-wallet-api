@@ -1,6 +1,6 @@
 ﻿namespace RewardWallet.Features.FetchFeedbackTickets;
 
-public class FetchFeedbackTicketsCriteria : CriteriaBase
+public class FetchFeedbackTicketsSMACriteria : CriteriaBase
 {
     public int CustId { get; set; }
     public long TransId { get; set; }

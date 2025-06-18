@@ -1,6 +1,6 @@
 ﻿namespace RewardInfrastructure.Constants;
 
-public static class MsgTemplateContent
+public static class MessageContent
 {
     public const string MemberEng = "Dear valued agents,\r\nWe have received feedback from your member @member_username " +
                                     "indicating that the cash reward of @amount from the company has not been distributed. " +
