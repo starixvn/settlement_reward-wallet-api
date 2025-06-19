@@ -1,7 +1,6 @@
 ﻿using Core.Models;
 using Fanex.Data.Repository;
 using Fanex.Settlement.Converter.Services;
-using RewardInfrastructure.Constants;
 using RewardInfrastructure.Criteria;
 using RewardInfrastructure.Models;
 using RewardWallet.Contracts;
@@ -33,7 +32,7 @@ public class UploadBatchMessageServiceImp(
 
     private static Message CreateMessageFromTicket(SabaWalletTicketItem item, int messageId, string level)
     {
-        List<Customer> participants = level == Levels.Agent
+        List<Customer> participants = level == Constants.Levels.Agent
             ? [new Customer(item.AgentId, item.AgentUsername)]
             : [new Customer(item.MasterId, item.MasterUsername), new Customer(item.SuperId, item.SuperUsername)];
 

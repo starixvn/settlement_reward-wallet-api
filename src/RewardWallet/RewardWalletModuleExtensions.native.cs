@@ -33,8 +33,8 @@ public static class RewardWalletModuleExtensions
     public static IEndpointRouteBuilder MapRewardWalletModule(this IEndpointRouteBuilder endpoints)
     {
         _ = endpoints
-            .MapGroup($"api/{Constants.ModuleName.ToLower(CultureInfo.InvariantCulture)}")
-            .WithTags($"{Constants.ModuleName}")
+            .MapGroup($"api/{Levels.ModuleName.ToLower(CultureInfo.InvariantCulture)}")
+            .WithTags($"{Levels.ModuleName}")
             .AddCustomFluentValidationFilter()
 
             .MapFetchBalance()

@@ -1,5 +1,3 @@
-using RewardInfrastructure.Constants;
-
 namespace RewardWallet.Tests.Infrastructure.Constants;
 
 public class LevelsTests
@@ -8,9 +6,9 @@ public class LevelsTests
     public void Levels_ValuesAreCorrect()
     {
         // Assert
-        Assert.Equal("Member", Levels.Member);
-        Assert.Equal("Agent", Levels.Agent);
-        Assert.Equal("Master", Levels.Master);
-        Assert.Equal("Super", Levels.Super);
+        Assert.Equal("Member", RewardInfrastructure.Constants.Levels.Member);
+        Assert.Equal("Agent", RewardInfrastructure.Constants.Levels.Agent);
+        Assert.Equal("Master", RewardInfrastructure.Constants.Levels.Master);
+        Assert.Equal("Super", RewardInfrastructure.Constants.Levels.Super);
     }
 }

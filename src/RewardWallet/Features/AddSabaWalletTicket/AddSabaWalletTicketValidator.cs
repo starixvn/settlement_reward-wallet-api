@@ -62,9 +62,9 @@ public class AddSabaWalletTicketValidator : AbstractValidator<AddSabaWalletTicke
     private bool IsProgramExists(short programId)
     {
         var program = remotingRefService.GetResourceDataByRefIdAndResourceId(
-            Constants.RefIdProgram,
+            Levels.RefIdProgram,
             programId.ToString(),
-            Constants.DefaultLanguage,
+            Levels.DefaultLanguage,
             string.Empty);
 
         return !string.IsNullOrEmpty(program);

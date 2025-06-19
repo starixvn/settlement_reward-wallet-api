@@ -3,7 +3,7 @@ using RewardWallet.Contracts;
 
 namespace RewardInfrastructure.Services.ProgramMessage;
 
-public class DefaultTemplateProvider() : IMessageTemplateProvider
+public class DefaultTemplateProvider : IMessageTemplateProvider
 {
     public string GetTemplate(string level, string languageCode, SabaWalletTicketItem ticket)
     {

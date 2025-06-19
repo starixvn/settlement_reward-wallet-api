@@ -1,4 +1,5 @@
 using Fanex.RemotingRef;
+using RewardInfrastructure.Constants;
 using RewardInfrastructure.Services.ProgramMessage;
 
 namespace RewardInfrastructure.Services;
@@ -14,7 +15,7 @@ public class MessageTemplateProviderFactoryImp(IRemotingRefService remotingRefSe
     {
         var templateProviders = new Dictionary<int, IMessageTemplateProvider>
         {
-            { 3, new ProgramId3TemplateProvider(remotingRefService) }
+            { ProgramId.SixScoreChallenge, new ProgramId3TemplateProvider(remotingRefService) }
         };
 
         return templateProviders.TryGetValue(programId, out var provider) ? provider : new DefaultTemplateProvider();
