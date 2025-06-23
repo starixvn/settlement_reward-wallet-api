@@ -20,7 +20,7 @@ public static class InitializeConfig
 {
     public static IServiceCollection AddInitialServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddOneBookUm(configuration);
+        services.AddOneBookUmForService(configuration);
         services.AddFanexLogSentry(configuration);
         services.AddFanexSql(configuration);
         services.AddConfigRedisCache(configuration);
