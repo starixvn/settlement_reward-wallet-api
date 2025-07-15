@@ -53,7 +53,7 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "RewardWallet API V1");
 });
 
-app.MapHealthChecks("/health");
+app.MapHealthChecks("/healthz");
 
 app.UseMiddleware<ExceptionMiddleware>();
 
