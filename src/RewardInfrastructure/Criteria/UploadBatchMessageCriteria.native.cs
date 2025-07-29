@@ -1,9 +1,9 @@
 ﻿using Fanex.Data.Repository;
 using RewardInfrastructure.Constants;
 
-namespace RewardInfrastructure.Features.AddTargetMsg;
+namespace RewardInfrastructure.Criteria;
 
-internal class AddTargetMsgCriteria : NonQueryCommand
+internal class UploadBatchMessageCriteria : NonQueryCommand
 {
     public string XMLMessage { get; set; }
 

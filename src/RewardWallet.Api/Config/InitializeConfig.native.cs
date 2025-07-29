@@ -32,8 +32,6 @@ public static class InitializeConfig
 
     private static void AddCoreServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<ICacheService, CacheService>();
-
         services.AddTransient<ILogger, Logger>();
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddTransient<IDynamicRepository, DynamicRepository>();

@@ -6,7 +6,7 @@ public class SabaWalletTicketService(IDynamicRepository repository) : ISabaWalle
 {
     public async Task<List<SabaWalletTicketItem>> GetFeedback(int cusId, long transId)
     {
-        var criteria = new FetchFeedbackTicketsCriteria
+        var criteria = new FetchFeedbackTicketsSMACriteria
         {
             CustId = cusId,
             TransId = transId

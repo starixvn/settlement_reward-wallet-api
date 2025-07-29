@@ -1,18 +1,26 @@
 ﻿using Core.Models;
 using Fanex.Data.Repository;
 using Fanex.Settlement.Converter.Services;
-using RewardInfrastructure.Constants;
+using RewardInfrastructure.Criteria;
+using RewardInfrastructure.Models;
 using RewardWallet.Contracts;
 
-namespace RewardInfrastructure.Features.AddTargetMsg;
+namespace RewardInfrastructure.Services;
 
-public class AddTargetMsgHandler(IDynamicRepository repository, XmlConvertService xmlConvertService)
+public interface UploadBatchMessageService
+{
+    Task<Result> HandleAsync(SabaWalletTicketItem item, int messageId, string level);
+}
+
+public class UploadBatchMessageServiceImp(
+    IDynamicRepository repository,
+    XmlConvertService xmlConvertService) : UploadBatchMessageService
 {
     public async Task<Result> HandleAsync(SabaWalletTicketItem item, int messageId, string level)
     {
         var message = CreateMessageFromTicket(item, messageId, level);
 
-        var criteria = new AddTargetMsgCriteria
+        var criteria = new UploadBatchMessageCriteria
         {
             XMLMessage = xmlConvertService.Serialize(message)
         };
@@ -24,7 +32,7 @@ public class AddTargetMsgHandler(IDynamicRepository repository, XmlConvertServic
 
     private static Message CreateMessageFromTicket(SabaWalletTicketItem item, int messageId, string level)
     {
-        List<Customer> participants = level == Levels.Agent
+        List<Customer> participants = level == Constants.Levels.Agent
             ? [new Customer(item.AgentId, item.AgentUsername)]
             : [new Customer(item.MasterId, item.MasterUsername), new Customer(item.SuperId, item.SuperUsername)];
 

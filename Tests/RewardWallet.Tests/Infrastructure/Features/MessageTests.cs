@@ -1,4 +1,4 @@
-using RewardInfrastructure.Features;
+using RewardInfrastructure.Models;
 using System.Xml.Serialization;
 
 namespace RewardWallet.Tests.Infrastructure.Features;

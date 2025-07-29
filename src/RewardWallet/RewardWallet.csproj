@@ -25,7 +25,6 @@
     <!-- ReSharper disable once VulnerablePackage -->
     <PackageReference Include="Fanex.Data.SqlServer" Version="4.3.4.3" />
     <PackageReference Include="Fanex.Logging" Version="2.0.2" />
-    <PackageReference Include="Fanex.Logging.Extensions.AspNetCore" Version="1.1.0" />
     <PackageReference Include="Fanex.Logging.Extensions.Database" Version="2.0.2.1" />
     <!-- ReSharper disable once VulnerablePackage -->
     <PackageReference Include="Fanex.Logging.Sentry.RavenClient" Version="2.0.2" />

@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using RewardInfrastructure.Features;
-using RewardInfrastructure.Features.AddMsg;
-using RewardInfrastructure.Features.AddTargetMsg;
+using RewardInfrastructure.Services;
+using RewardInfrastructure.Services.ProgramMessage;
 
 namespace RewardInfrastructure;
 
@@ -12,8 +12,11 @@ public static class RewardInfrastructureExtensions
     public static WebApplicationBuilder AddRewardInfrastructureModule(this WebApplicationBuilder builder)
     {
         builder.Services
-            .AddScoped<AddTargetMsgHandler>()
-            .AddScoped<AddMsgHandler>();
+            .AddScoped<UploadBatchMessageService, UploadBatchMessageServiceImp>()
+            .AddScoped<InsertMessageService, InsertMessageServiceImp>()
+            .AddScoped<MessageTemplateProviderFactory, MessageTemplateProviderFactoryImp>()
+            .AddScoped<IMessageTemplateProvider, DefaultTemplateProvider>()
+            .AddScoped<IMessageTemplateProvider, ProgramId3TemplateProvider>();
 
         return builder;
     }

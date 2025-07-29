@@ -1,13 +1,13 @@
 namespace RewardWallet.Tests;
 
-public class ConstantsTests
+public class LevelsTests
 {
     [Fact]
     public void Constants_ValuesAreCorrect()
     {
         // Assert
-        Assert.Equal("Reward", Constants.ModuleName);
-        Assert.Equal("RewardProgram", Constants.RefIdProgram);
-        Assert.Equal("en", Constants.DefaultLanguage);
+        Assert.Equal("Reward", Levels.ModuleName);
+        Assert.Equal("RewardProgram", Levels.RefIdProgram);
+        Assert.Equal("en", Levels.DefaultLanguage);
     }
 }
