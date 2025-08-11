@@ -75,7 +75,7 @@ public class ProgramId3TemplateProviderTests
         var result = provider.GetTemplate(level, languageCode, ticket);
 
         // Assert
-        Assert.Contains("亲爱的代理伙伴您好", result);
+        Assert.Contains("親愛的代理夥伴您好", result);
         Assert.Contains("testuser", result);
         Assert.Contains("200.75", result);
         Assert.Contains(programName, result);
@@ -105,7 +105,7 @@ public class ProgramId3TemplateProviderTests
         var result = provider.GetTemplate(level, languageCode, ticket);
 
         // Assert
-        Assert.Contains("親愛的代理夥伴您好", result);
+        Assert.Contains("亲爱的代理伙伴您好", result);
         Assert.Contains("testuser", result);
         Assert.Contains("300.25", result);
         Assert.Contains(programName, result);
@@ -196,7 +196,7 @@ public class ProgramId3TemplateProviderTests
         var result = provider.GetTemplate(level, languageCode, ticket);
 
         // Assert
-        Assert.Contains("亲爱的代理伙伴您好", result);
+        Assert.Contains("親愛的代理夥伴您好", result);
         Assert.Contains("testuser", result);
         Assert.Contains("200.75", result);
         Assert.Contains(programName, result);
@@ -226,7 +226,7 @@ public class ProgramId3TemplateProviderTests
         var result = provider.GetTemplate(level, languageCode, ticket);
 
         // Assert
-        Assert.Contains("親愛的代理夥伴您好", result);
+        Assert.Contains("亲爱的代理伙伴您好", result);
         Assert.Contains("testuser", result);
         Assert.Contains("300.25", result);
         Assert.Contains(programName, result);
